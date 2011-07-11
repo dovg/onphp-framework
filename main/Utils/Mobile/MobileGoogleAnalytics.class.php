@@ -21,7 +21,7 @@
 		private $utmGifLocation = "http://www.google-analytics.com/__utm.gif";
 		
 		private $accountId	= null;
-		private $imageUrl	= '/ga.php';
+		private $imageUrl	= null;
 		
 		/**
 		 * @return MobileGoogleAnalytics
@@ -55,7 +55,10 @@
 		 */
 		public function getImageBaseUrl()
 		{
-			return $this->imageUrl;
+			return
+				$this->imageUrl
+					? $this->imageUrl
+					: HttpUrl::create()->setPath('/ga.php');
 		}
 		
 		public function getImageUrl(HttpRequest $request)
