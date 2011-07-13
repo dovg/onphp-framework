@@ -78,6 +78,8 @@
 				$url->appendQuery(
 					'utmp='.urlencode($request->getServerVar('REQUEST_URI'))
 				);
+			
+			return $url;
 		}
 		
 		public function showImage(HttpRequest $request)
