@@ -24,6 +24,13 @@ abstract class Auto{$class->getName()}DAO extends StorableDAO
 
 EOT;
 
+			if ($class->isFromSlave())
+				$out .= <<<EOT
+	protected \$useSlave = true;
+
+
+EOT;
+
 			$pointers = self::buildPointers($class);
 			
 			$out .= <<<EOT

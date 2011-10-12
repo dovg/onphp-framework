@@ -56,7 +56,7 @@
 		public function dropById($id)
 		{
 			$result =
-				DBPool::getByDao($this->dao)->queryCount(
+				$this->getDb()->queryCount(
 					OSQL::delete()->from($this->dao->getTable())->
 					where(Expression::eq($this->dao->getIdName(), $id))
 				);
@@ -69,7 +69,7 @@
 		public function dropByIds(array $ids)
 		{
 			$result =
-				DBPool::getByDao($this->dao)->queryCount(
+				$this->getDb()->queryCount(
 					OSQL::delete()->from($this->dao->getTable())->
 					where(Expression::in($this->dao->getIdName(), $ids))
 				);
@@ -118,7 +118,7 @@
 		//@{
 		protected function fetchObject(SelectQuery $query)
 		{
-			if ($row = DBPool::getByDao($this->dao)->queryRow($query)) {
+			if ($row = $this->getDb()->queryRow($query)) {
 				return $this->dao->makeObject($row);
 			}
 			
@@ -131,7 +131,7 @@
 			$byId = true
 		)
 		{
-			if ($row = DBPool::getByDao($this->dao)->queryRow($query)) {
+			if ($row = $this->getDb()->queryRow($query)) {
 				$object = $this->dao->makeOnlyObject($row);
 				
 				if ($byId)
@@ -149,7 +149,7 @@
 		{
 			$list = array();
 			
-			if ($rows = DBPool::getByDao($this->dao)->querySet($query)) {
+			if ($rows = $this->getDb()->querySet($query)) {
 				$proto = $this->dao->getProtoClass();
 				
 				$proto->beginPrefetch();
@@ -163,6 +163,14 @@
 			return $list;
 		}
 		//@}
+
+		/*
+		 * @return DB
+		 */
+		protected function getDb()
+		{
+			return DBPool::getByDao($this->dao, $this->dao->isUseSlave());
+		}
 		
 		protected function makeIdKey($id)
 		{

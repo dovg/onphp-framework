@@ -124,7 +124,7 @@
 					'can not handle non-single row queries'
 				);
 			
-			$db = DBPool::getByDao($this->dao);
+			$db = $this->getDb();
 			
 			if (
 				($expires !== Cache::DO_NOT_CACHE)
@@ -313,7 +313,7 @@
 					throw new CachedObjectNotFoundException();
 				
 				return $list;
-			} elseif ($list = DBPool::getByDao($this->dao)->querySet($query)) {
+			} elseif ($list = $this->getDb()->querySet($query)) {
 				if (Cache::DO_NOT_CACHE === $expires) {
 					return $list;
 				} else {
@@ -353,7 +353,7 @@
 					throw new CachedObjectNotFoundException();
 				
 				return $list;
-			} elseif ($list = DBPool::getByDao($this->dao)->queryColumn($query)) {
+			} elseif ($list = $this->getDb()->queryColumn($query)) {
 				if (Cache::DO_NOT_CACHE === $expires) {
 					return $list;
 				} else {
@@ -394,7 +394,7 @@
 				$count = clone $query;
 				
 				$count =
-					DBPool::getByDao($this->dao)->queryRow(
+					$this->getDb()->queryRow(
 						$count->dropFields()->dropOrder()->limit(null, null)->
 						get(SQLFunction::create('COUNT', '*')->setAlias('count'))
 					);

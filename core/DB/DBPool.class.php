@@ -19,6 +19,8 @@
 		private $default = null;
 		
 		private $pool = array();
+
+		private $slavePool = array();
 		
 		/**
 		 * @return DBPool
@@ -31,9 +33,9 @@
 		/**
 		 * @return DB
 		**/
-		public static function getByDao(GenericDAO $dao)
+		public static function getByDao(GenericDAO $dao, $useSlave = false)
 		{
-			return self::me()->getLink($dao->getLinkName());
+			return self::me()->getLink($dao->getLinkName(), $useSlave);
 		}
 		
 		/**
@@ -92,7 +94,7 @@
 		 * @throws MissingElementException
 		 * @return DB
 		**/
-		public function getLink($name = null)
+		public function getLink($name = null, $useSlave = false)
 		{
 			$link = null;
 			
@@ -104,8 +106,12 @@
 					);
 				
 				$link = $this->default;
-			} elseif (isset($this->pool[$name]))
-				$link = $this->pool[$name];
+			} elseif (isset($this->pool[$name])) {
+				if ($useSlave && isset($this->slavePool[$name]))
+					$link = $this->slavePool[$name];
+				else
+					$link = $this->pool[$name];
+			}
 			
 			if ($link) {
 				if (!$link->isConnected())
@@ -117,6 +123,25 @@
 			throw new MissingElementException(
 				"can't find link with '{$name}' name"
 			);
+		}
+
+		/**
+		 * @throws WrongArgumentException
+		 * @return DBPool
+		**/
+		public function addSlaveLink($masterLinkName, DB $db)
+		{
+			if (!isset($this->pool[$masterLinkName]))
+				throw new MissingElementException (
+					"can't find master link with '{$masterLinkName}' name"
+				);
+
+			if (isset($this->slavePool[$masterLinkName]))
+				throw new WrongArgumentException(
+					'we can have only one slave for now'
+				);
+
+			$this->slavePool[$masterLinkName] = $db;
 		}
 		
 		/**
