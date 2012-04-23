@@ -11,6 +11,7 @@
 		extends		CDATA #IMPLIED
 		source		CDATA #IMPLIED
 		table		CDATA #IMPLIED
+		fromSlave   (true|false) "false"
 >
 
 <!ELEMENT implement EMPTY>

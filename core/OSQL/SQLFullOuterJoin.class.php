@@ -1,6 +1,6 @@
 <?php
 /***************************************************************************
- *   Copyright (C) 2006-2007 by Konstantin V. Arkhipov                     *
+ *   Copyright (C) 2012 by Timofey A. Anisimov                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU Lesser General Public License as        *
@@ -10,36 +10,17 @@
  ***************************************************************************/
 
 	/**
-	 * @ingroup Builders
+	 * @ingroup OSQL
 	**/
-	final class DictionaryDaoBuilder extends BaseBuilder
+	final class SQLFullOuterJoin extends SQLBaseJoin
 	{
-		public static function build(MetaClass $class)
+		/**
+		 * @param Dialect $dialect
+		 * @return string
+		 */
+		public function toDialectString(Dialect $dialect)
 		{
-			$out = self::getHead();
-			
-			$out .= <<<EOT
-abstract class Auto{$class->getName()}DAO extends StorableDAO
-{
-
-EOT;
-
-			if ($class->isFromSlave())
-				$out .= <<<EOT
-	protected \$useSlave = true;
-
-
-EOT;
-
-			$pointers = self::buildPointers($class);
-			
-			$out .= <<<EOT
-{$pointers}
-}
-
-EOT;
-			
-			return $out.self::getHeel();
+			return parent::baseToString($dialect, 'FULL OUTER ');
 		}
+
 	}
-?>
