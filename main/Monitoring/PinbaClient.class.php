@@ -19,6 +19,9 @@
 		private $timers = array();
 		private $queue = array();
 		private $treeLogEnabled = false;
+		private $hostName = "localhost";
+		private $firstUniq = null;
+		private $idShift = 1;
 		
 		
 		/**
@@ -60,8 +63,12 @@
 				throw new WrongArgumentException('a timer with the same name allready exists');
 			
 			if ($this->isTreeLogEnabled()) {
+				if (empty($this->firstUniq)) {
+					$this->firstUniq = uniqid($this->hostName);
+				}
 				
-				$id = uniqid();
+				//must be uniq for 20 minutes
+				$id = $this->firstUniq.':'.($this->idShift++);
 				$tags['treeId'] = $id;
 				
 				if (!empty($this->queue))
@@ -129,6 +136,7 @@
 		
 		public function setHostName($name)
 		{
+			$this->hostName = $name;
 			pinba_hostname_set($name);
 			
 			return $this;
