@@ -61,7 +61,7 @@
 		public function getSlaveLink()
 		{
 			while ($this->pool) {
-				$name = array_rand($this->weightGrade);
+				$name = $this->weightGrade[array_rand($this->weightGrade)];
 				$link = $this->pool[$name];
 
 				if (!$link->isConnected())
