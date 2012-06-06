@@ -56,7 +56,7 @@
 		public function dropById($id)
 		{
 			$result =
-				$this->getDb()->queryCount(
+				$this->getDb(true)->queryCount(
 					OSQL::delete()->from($this->dao->getTable())->
 					where(Expression::eq($this->dao->getIdName(), $id))
 				);
@@ -69,7 +69,7 @@
 		public function dropByIds(array $ids)
 		{
 			$result =
-				$this->getDb()->queryCount(
+				$this->getDb(true)->queryCount(
 					OSQL::delete()->from($this->dao->getTable())->
 					where(Expression::in($this->dao->getIdName(), $ids))
 				);
@@ -167,9 +167,13 @@
 		/*
 		 * @return DB
 		 */
-		protected function getDb()
+		protected function getDb($useMaster = false)
 		{
-			return DBPool::getByDao($this->dao, $this->dao->isUseSlave());
+			return 
+				DBPool::getByDao(
+					$this->dao, 
+					$this->dao->isUseSlave() && !$useMaster
+				);
 		}
 		
 		protected function makeIdKey($id)
