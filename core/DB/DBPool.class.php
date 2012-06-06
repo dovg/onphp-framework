@@ -139,8 +139,13 @@
 				throw new MissingElementException (
 					"can't find master link with '{$masterLinkName}' name"
 				);
+			
+			if (isset($this->slavePool[$masterLinkName]))
+				throw new WrongStateException(
+					"slave pool for {$masterLinkName} already exists"	
+				);
 
-			$this->slavePool = $slavePool;
+			$this->slavePool[$masterLinkName] = $slavePool;
 		}
 		
 		/**
