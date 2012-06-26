@@ -220,7 +220,7 @@
 		public function testSlavePoolDropLink()
 		{			
 			$slavePool =
-				SlaveDBPool::create()->
+				SlaveDBList::create()->
 					addLink('test1', $this->getSlaveLink('test1'), 10)->
 					addLink('test2', $this->getSlaveLink('test2'), 1);
 			
@@ -236,7 +236,7 @@
 			$this->assertNull($slavePool->getSlaveLink());
 			
 			$slavePool =
-				SlaveDBPool::create()->
+				SlaveDBList::create()->
 					addLink(
 						'test', 
 						$this->getSlaveLink('test')->setFailConnect(true),
@@ -249,7 +249,7 @@
 		public function testSlavePoolAdd()
 		{
 			$slavePool = 
-				SlaveDBPool::create()->
+				SlaveDBList::create()->
 				addLink('test', $this->getSlaveLink('test'), 10);
 			
 			try {
@@ -263,16 +263,16 @@
 			
 			$dbPool = $this->makeDBPool();
 			
-			$dbPool->addSlaveLink('main', $slavePool);
+			$dbPool->addSlaveList('main', $slavePool);
 			
 			try {
-				$dbPool->addSlaveLink('main', $slavePool);
+				$dbPool->addSlaveList('main', $slavePool);
 				
 				$this->fail('Dublicate slave pool');
 			} catch (WrongStateException $e) {/* ok */}
 			
 			try {
-				$dbPool->addSlaveLink('no_such_link', $slavePool);
+				$dbPool->addSlaveList('no_such_link', $slavePool);
 				
 				$this->fail('Added slave pool for missing link');
 			} catch (MissingElementException $e) {/* ok */}			
@@ -282,9 +282,9 @@
 		{
 			$pool = $this->makeDBPool();
 			
-			$pool->addSlaveLink(
+			$pool->addSlaveList(
 				'main', 
-				SlaveDBPool::create()->
+				SlaveDBList::create()->
 					addLink(
 						'slave1',
 						$this->getSlaveLink('slave1'),
@@ -308,9 +308,9 @@
 			$pool = $this->makeDBPool();
 			
 			$pool->
-				addSlaveLink(
+				addSlaveList(
 					'main',
-					SlaveDBPool::create()->
+					SlaveDBList::create()->
 						addLink('slave1', $this->getSlaveLink('slave1'))
 				);
 			

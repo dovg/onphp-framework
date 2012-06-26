@@ -20,7 +20,7 @@
 		
 		private $pool = array();
 
-		private $slavePool = null;
+		private $slaveList = null;
 		
 		/**
 		 * @return DBPool
@@ -99,8 +99,8 @@
 			if (
 				$useSlave
 				&& $name
-				&& isset($this->slavePool[$name])
-				&& ($slaveLink = $this->slavePool[$name]->getSlaveLink())
+				&& isset($this->slaveList[$name])
+				&& ($slaveLink = $this->slaveList[$name]->getSlaveLink())
 			)
 				return $slaveLink;
 
@@ -133,19 +133,19 @@
 		 * @throws WrongArgumentException
 		 * @return DBPool
 		**/
-		public function addSlaveLink($masterLinkName, SlaveDBPool $slavePool)
+		public function addSlaveList($masterLinkName, SlaveDBList $slavePool)
 		{
 			if (!isset($this->pool[$masterLinkName]))
 				throw new MissingElementException (
 					"can't find master link with '{$masterLinkName}' name"
 				);
 			
-			if (isset($this->slavePool[$masterLinkName]))
+			if (isset($this->slaveList[$masterLinkName]))
 				throw new WrongStateException(
 					"slave pool for {$masterLinkName} already exists"	
 				);
 
-			$this->slavePool[$masterLinkName] = $slavePool;
+			$this->slaveList[$masterLinkName] = $slavePool;
 		}
 		
 		/**

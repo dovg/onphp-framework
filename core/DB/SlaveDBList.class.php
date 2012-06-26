@@ -9,16 +9,27 @@
  *                                                                         *
  ***************************************************************************/
 
-	final class SlaveDBPool
+	final class SlaveDBList
 	{
 		private $pool = array();
 		private $weightGrade = array();
 
+		/**
+		 * @static
+		 * @return SlaveDBList
+		 */
 		public static function create()
 		{
 			return new self;
 		}
 
+		/**
+		 * @param $name
+		 * @param DB $db
+		 * @param int $weight
+		 * @return SlaveDBList
+		 * @throws WrongArgumentException
+		 */
 		public function addLink($name, DB $db, $weight = 1)
 		{
 			if (isset($this->pool[$name]))
@@ -38,6 +49,11 @@
 			return $this;
 		}
 
+		/**
+		 * @param $name
+		 * @return SlaveDBList
+		 * @throws MissingElementException
+		 */
 		public function dropLink($name)
 		{
 			if (!isset($this->pool[$name]))
@@ -58,6 +74,9 @@
 			return $this;
 		}
 
+		/**
+		 * @return null | DB
+		 */
 		public function getSlaveLink()
 		{
 			while ($this->pool) {
