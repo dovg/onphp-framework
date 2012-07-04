@@ -19,6 +19,7 @@
 		
 		private $summaryWeight = self::DEFAULT_SUMMARY_WEIGHT;
 		private $sorted = false;
+		private $weightList = array();
 
 		/**
 		 * @return CyclicAggregateCache
@@ -38,21 +39,36 @@
 			return $this;
 		}
 
-		public function addPeer($label, CachePeer $peer, $mountPoint)
+		public function addPeer($label, CachePeer $peer, $weight)
 		{
-			Assert::isLesserOrEqual($mountPoint, $this->summaryWeight);
-			Assert::isGreaterOrEqual($mountPoint, 0);
+			Assert::isGreaterOrEqual($weight, 0);
 
 			$this->doAddPeer($label, $peer);
-
-			$this->peers[$label]['mountPoint'] = $mountPoint;
+			
+			$this->peers[$label]['mountPoint'] = $this->summaryWeight + 1;
+			$this->weightList[$label] = $weight;
+			$this->summaryWeight += $weight;
 			$this->sorted = false;
 			
 			return $this;
 		}
 
+		public function dropPeer($label)
+		{
+			parent::dropPeer($label);
+			
+			$this->summaryWeight -= $this->weightList[$label];
+			unset($this->weightList[$label]);
+			
+			return $this;
+		}
+
+
 		protected function guessLabel($key)
 		{
+			if (count($this->peers) == 1)
+				return key($this->peers);
+			
 			if (!$this->sorted)
 				$this->sortPeers();
 

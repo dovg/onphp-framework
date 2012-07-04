@@ -44,7 +44,7 @@
 				if ($peer['object']->isAlive())
 					$this->alive = true;
 				else
-					unset($this->peers[$label]);
+					$this->dropPeer($label);
 
 			return $this->alive;
 		}
