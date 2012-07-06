@@ -28,7 +28,7 @@
 					"there is no peer with '{$label}' label"
 				);
 
-			unset($this->peer[$label]);
+			unset($this->peers[$label]);
 
 			return $this;
 		}
