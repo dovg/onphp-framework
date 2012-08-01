@@ -11,11 +11,14 @@
 
 	final class CascadeCache extends CachePeer
 	{
-		const LOCAL_NULL_VALUE	= 'local_nil';
+		const LOCAL_NULL_VALUE		= 'local_nil';
+		const NEGATIVE_CACHE_ON		= true;
+		const NEGATIVE_CACHE_OFF	= false;
 		
 		private $localPeer		= null;
 		private $remotePeer		= null;
 		private $className		= null;
+		private $cacheStrategy	= null;
 		
 		// map class -> local ttl
 		private $localTtlMap	= array();
@@ -23,15 +26,24 @@
 		/**
 		 * @return CascadeCache
 		**/
-		public static function create(CachePeer $localPeer, CachePeer $remotePeer)
+		public static function create(
+			CachePeer $localPeer,
+			CachePeer $remotePeer,
+			$cacheStrategy = self::NEGATIVE_CACHE_ON
+		)
 		{
-			return new self($localPeer, $remotePeer);
+			return new self($localPeer, $remotePeer, $cacheStrategy);
 		}
 		
-		public function __construct(CachePeer $localPeer, CachePeer $remotePeer)
+		public function __construct(
+			CachePeer $localPeer,
+			CachePeer $remotePeer,
+			$cacheStrategy = self::NEGATIVE_CACHE_ON
+		)
 		{
 			$this->localPeer = $localPeer;
 			$this->remotePeer = $remotePeer;
+			$this->cacheStrategy = $cacheStrategy;
 		}
 		
 		/**
@@ -172,8 +184,12 @@
 			$key, $value, $expires = Cache::EXPIRES_MEDIUM
 		)
 		{
-			if (!$value)
-				$value = self::LOCAL_NULL_VALUE;
+			if (!$value) {
+				if ($this->cacheStrategy == self::NEGATIVE_CACHE_ON)
+					$value = self::LOCAL_NULL_VALUE;
+				else
+					return $this;
+			}
 			
 			if (array_key_exists($this->className, $this->localTtlMap))
 				$expires = $this->localTtlMap[$this->className];
