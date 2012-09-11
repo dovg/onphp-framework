@@ -32,16 +32,6 @@
 			return new self();
 		}
 
-		public function setSummaryWeight($weight)
-		{
-			Assert::isPositiveInteger($weight);
-			
-			$this->summaryWeight = $weight;
-			$this->sorted = false;
-			
-			return $this;
-		}
-
 		public function addPeer($label, CachePeer $peer, $weight = 1)
 		{
 			Assert::isGreaterOrEqual($weight, 0);
@@ -81,6 +71,22 @@
 
 		protected function guessLabel($key)
 		{
+			$label = null;
+			
+			while ($label = $this->getLabelByKey($key))
+				if (!$this->peers[$label]['object']->isAlive())
+					$this->checkAlive();
+				else
+					break;
+			
+			return $label;
+		}
+
+		private function getLabelByKey($key)
+		{
+			if (!$this->peers)
+				throw new RuntimeException('All peers are dead');
+			
 			if (count($this->peers) == 1)
 				return key($this->peers);
 			
@@ -88,8 +94,6 @@
 				$this->sortPeers();
 
 			$point = $this->hash($key);
-			
-			$firstPeer = reset($this->pointToPeer);
 		
 			while ($peer = current($this->pointToPeer)) {
 				if ($point <= key($this->pointToPeer))
