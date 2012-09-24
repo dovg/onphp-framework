@@ -210,6 +210,9 @@
 				
 				'ip4r'			=> DataType::IP_RANGE,
 				
+				'point'			=> DataType::POINT,
+				'polygon'		=> DataType::POLYGON,				
+				
 				// unhandled types, not ours anyway
 				'tsvector'		=> null,
 				
