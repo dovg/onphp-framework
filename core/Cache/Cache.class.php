@@ -47,6 +47,9 @@
 		**/
 		public static function me()
 		{
+			if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'ro.trunk.plus1.oemtest.ru')
+				file_put_contents ('/tmp/dovg', print_r(debug_backtrace(),1)."\n\n\n\n", FILE_APPEND);
+				
 			if (!self::$peer || !self::$peer->isAlive())
 				self::$peer = new RuntimeMemory();
 			
