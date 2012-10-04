@@ -12,7 +12,7 @@
 	/**
 	 * @ingroup Geometry
 	**/
-	final class Point implements Stringable, DialectString
+	class Point implements Stringable, DialectString
 	{
 		const X = 0;
 		const Y = 1;
