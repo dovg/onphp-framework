@@ -29,7 +29,7 @@
 		public static function create(/* ... */)
 		{
 			if (func_num_args() == 1)
-				return new self(func_get_arg(0));
+				return new static(func_get_arg(0));
 			
 			return new static(func_get_args());
 		}
