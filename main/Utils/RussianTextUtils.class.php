@@ -204,7 +204,7 @@
 			elseif ($date->toDate() == $tomorrow->toDate() && $wordDayNeed == true)
 				return 'завтра';
 			elseif (
-				$date->toDate() == $date->spawn('-1 day')->toDate()
+				$date->toDate() == $today->spawn('-1 day')->toDate()
 				&& $wordDayNeed == true
 			)
 				return 'вчера';
