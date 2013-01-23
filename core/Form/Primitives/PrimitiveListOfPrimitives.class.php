@@ -42,6 +42,11 @@
 			return $this;
 		}
 		
+		public function getPrimitiveList()
+		{
+			return $this->value;
+		}
+		
 		public function getValue() 
 		{
 			return $this->getAdoptedValue('getValue');
@@ -65,6 +70,22 @@
 				return null;
 			
 			if (is_array($this->raw)) {
+				if ($this->primitive instanceof PrimitiveFile) {
+					$result = array();
+					
+					for ($i = 0; $i < count($this->raw['name']); $i++) {
+						$row = array();
+						
+						foreach (array_keys($this->raw) as $column) {
+							$row[$column] = $this->raw[$column][$i];
+						}
+						
+						$result[] = $row;
+					}
+					
+					$this->raw = $result;
+				}
+				
 				$result = true;
 				
 				$this->value = array();
