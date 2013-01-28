@@ -45,7 +45,8 @@
 					$vector = func_get_args();
 			}
 
-			Assert::isNotEmptyArray($vector);
+			if (empty($vector))
+				$vector = array(0, 0);
 			
 			$this->vector = $vector;
 		}

@@ -98,8 +98,16 @@
 			$point = Point::create(array(1, 1, 42));
 			
 			$this->assertEquals(42, $point->getZ());
-			
 			$this->assertEquals(8, $point->setY(8)->getY());
+		}
+
+		public function testDefaultPoint()
+		{
+			$point = Point::create();
+
+			$this->assertTrue($point->belongsToPlane());
+			$this->assertEquals(0, $point->getX());
+			$this->assertEquals(0, $point->getY());
 		}
 	}
 ?>
