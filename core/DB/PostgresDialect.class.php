@@ -161,10 +161,15 @@
 		
 		public function quoteIpInRange($range, $ip)
 		{
+			if ($range instanceof DBField)
+				$quotedRange = $this->quoteExpression($range);
+			else
+				$quotedRange = $this->getCastedExpr($range, 'ip4r');
+
 			return 
 				$this->quoteExpression($ip)
 				.' <<= '
-				.$this->quoteExpression($range);	
+				.$quotedRange;
 		}
 		
 		public function quotePointInPolygon($polygon, $point)
