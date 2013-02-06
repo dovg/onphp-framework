@@ -14,42 +14,40 @@
 	 *
 	 * @ingroup Helpers
 	**/
-	class PostgresArray implements Stringable, DialectString
+	class PostgresArray extends ArrayObject implements Stringable, DialectString
 	{
 		protected $delim = ',';
 		
-		private $value = array();
-		
 		/**
-		 * Create array by raw string including non-quoted postgres data types
+		 * Create PostgresArray object by array or raw string
 		 *
+		 * @param mixed $mixed may be array or string
+		 * @param string $delim one character as postgres array delimeter
 		 * @return PostgresArray
 		**/
-		public static function create($string, $delim = ',')
+		public static function create($mixed = null, $delim = ',')
 		{
-			return new self($string, $delim);
+			return new self($mixed, $delim);
 		}
 		
-		public function __construct($string, $delim = ',')
+		public function __construct($mixed = null, $delim = ',')
 		{
+			parent::__construct();
+			
 			$this->delim = $delim;
 			
-			$self->toValue($string);
-		}
-		
-		/**
-		 * @return PostgresArray
-		**/
-		public function toValue($raw)
-		{
-			$this->value = $this->parseString($raw);
-			
-			return $this;
+			if ($mixed) {
+				$this->exchangeArray(
+					is_array($mixed)
+						? $mixed
+						: $this->parseString($mixed)
+				);
+			}
 		}
 		
 		public function toString()
 		{
-			return $this->convertToString($this->value);
+			return $this->convertToString($this->getArrayCopy());
 		}
 		
 		public function toDialectString(Dialect $dialect)
@@ -78,18 +76,15 @@
 		
 		private function parseString($rawData)
 		{
-			if (!$rawData)
-				return null;
-			
 			$resultArray =
 				json_decode(
 					$this->convertRawToJson($rawData)
 				);
 			
-			if (!$resultArray) {
+			if (json_last_error() != JSON_ERROR_NONE) {
 				throw new WrongArgumentException(
 					'json_decode() failed with code: '.json_last_error().'; '
-					.'Raw data value was '.$rawData
+					."Raw data value was '$rawData'"
 				);
 			}
 			
