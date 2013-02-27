@@ -108,7 +108,7 @@
 					$primitive = clone $this->primitive;
 					
 					$result = 
-						($result && $this->isFailOnFirst()) 
+						($result || !$this->isFailOnFirst()) 
 						&& $primitive->importValue($rawValue);
 					
 					$this->value[] = $primitive;
