@@ -14,6 +14,8 @@
 	**/
 	final class PrimitiveListOfPrimitives extends BasePrimitive
 	{
+		private $failOnFirst = true;
+		
 		/**
 		 * @var BasePrimitive
 		 */
@@ -30,6 +32,18 @@
 		public function getPrimitive()
 		{
 			return $this->primitive;
+		}
+
+		public function setFailOnFirst($failOnFirst)
+		{
+			$this->failOnFirst = ($failOnFirst === true);
+			
+			return $this;
+		}
+
+		public function isFailOnFirst()
+		{
+			return $this->failOnFirst;
 		}
 		
 		/**
@@ -62,7 +76,7 @@
 			return $this->getAdoptedValue('getSafeValue');
 		}
 		
-		public function import($scope) 
+		public function import($scope)
 		{
 			Assert::isNotNull($this->primitive, 'Primitive must be set');
 			
@@ -93,7 +107,9 @@
 				foreach ($this->raw as $rawValue) {
 					$primitive = clone $this->primitive;
 					
-					$result = $result && $primitive->importValue($rawValue);
+					$result = 
+						($result && $this->isFailOnFirst()) 
+						&& $primitive->importValue($rawValue);
 					
 					$this->value[] = $primitive;
 				}
