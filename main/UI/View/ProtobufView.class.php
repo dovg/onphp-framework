@@ -56,9 +56,12 @@
 			if ($this->httpStatus)
 				header($this->httpStatus->toString());
 
-			header('Content-type: '.$this->contentType);
+			$content = $this->toString($model);
 
-			echo $this->toString($model);
+			header('Content-type: '.$this->contentType);
+			header('Content-length: '.strlen($content));
+
+			echo $content;
 
 			return $this;
 		}
