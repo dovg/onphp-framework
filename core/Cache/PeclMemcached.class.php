@@ -273,7 +273,6 @@
 				return $result;
 				
 			} catch (BaseException $e) {
-				throw $e;
 				if(strpos($e->getMessage(), 'Invalid key') !== false)
 					return null;
 				
