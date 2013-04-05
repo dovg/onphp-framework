@@ -18,8 +18,9 @@
 	
 	/* void */ function __autoload_failed($classname, $message)
 	{
-		if (!class_exists('ClassNotFoundException', false))
+		if (!class_exists('ClassNotFoundException', false)) {
 			final class ClassNotFoundException extends BaseException {/*_*/}
+		}
 
 		throw new ClassNotFoundException(sprintf('"%s": "%s"', $classname, $message));
 	}
