@@ -117,6 +117,17 @@
 					$this->year
 				);
 		}
+
+		public function roundByHour()
+		{
+			$this->minute = 0;
+			$this->second = 0;
+			$this->buildInteger();
+			$this->string = date(self::getFormat(), $this->int);
+
+			return $this;
+		}
+
 		
 		/**
 		 * ISO 8601 time string
