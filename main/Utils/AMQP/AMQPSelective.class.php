@@ -9,7 +9,7 @@
  *                                                                         *
  ***************************************************************************/
 
-	final class AMQPSelective implements AMQPInterface
+	final class AMQPSelective extends Singleton implements AMQPInterface
 	{
 		/**
 		 * @var array of AMQPChannelInterface instances
@@ -32,7 +32,7 @@
 		**/
 		public static function me()
 		{
-			return new self;
+			return Singleton::getInstance(get_called_class());
 		}
 
 		/**
@@ -74,7 +74,7 @@
 				Assert::isInstance($amqp, current($this->pool));
 
 			$this->pool[$name] = $amqp;
-
+			
 			return $this;
 		}
 
