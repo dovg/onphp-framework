@@ -451,7 +451,7 @@
 				"Could not declare queue"
 			);
 
-			return $result;
+			return $this;
 		}
 
 		/**
