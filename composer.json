@@ -26,6 +26,6 @@
         "ext-pecl_http": "*"
     },
     "autoload": {
-        "classmap": ["core/", "main/"]
+        "classmap": ["core/", "main/", "meta/"]
     }
 }
