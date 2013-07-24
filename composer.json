@@ -23,7 +23,7 @@
         "php": ">=5.3.0"
     },
     "conflict": {
-        "ext-pecl_http": "*"
+        "ext-http": "*"
     },
     "autoload": {
         "classmap": ["core/", "main/", "meta/"]
