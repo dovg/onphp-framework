@@ -18,26 +18,26 @@
 
 		public function testSetDefault() {
 			$choicePrimitive = $this->makePrimitive();
-			$choicePrimitive->setDefault(self::$defaultScope);
+			$choicePrimitive->setDefault($this->defaultScope);
 
 			$getDefault = $choicePrimitive->getDefault();
 			$getList = $choicePrimitive->getList();
 
-			$this->assertEquals($getDefault, self::$defaultScope);
-			$this->assertEquals($getList, self::$list);
+			$this->assertEquals($getDefault, $this->defaultScope);
+			$this->assertEquals($getList, $this->list);
 
 			foreach ($getDefault as $index)
-				$this->assertEquals($getList[$index], self::$list[$index]);
+				$this->assertEquals($getList[$index], $this->list[$index]);
 		}
 
 		public function testImport() {
 			$choicePrimitive = $this->makePrimitive();
-			$choicePrimitive->import(self::$importScope);
+			$choicePrimitive->import($this->importScope);
 
 			$this->assertEquals($choicePrimitive->isImported(), true);
 			$this->assertEquals(
 				$choicePrimitive->getValue(),
-				self::$importScope['multiChoice']
+				$this->importScope['multiChoice']
 			);
 
 			$choiced = $choicePrimitive->getChoiceValue();
@@ -45,13 +45,13 @@
 			foreach ($choiced as $key => $value)
 				$this->assertEquals(
 					$choiced[$key],
-					self::$list[$key]
+					$this->list[$key]
 				);
 		}
 
 		protected function makePrimitive() {
 			return Primitive::multiChoice('multiChoice')->
-				setList(self::$list);
+				setList($this->list);
 		}
 	}
 ?>
