@@ -2,22 +2,22 @@
 
 	final class PrimitiveMultiListTest extends TestCase
 	{
-		protected static $list =
+		protected $list =
 			array(
 				'choice_1'	=> 'bluePill',
 				'choice_2'	=> 'redPill',
 				3			=> 42,
 			);
 
-		protected static $defaultScope = array('choice_2', 3);
+		protected $defaultScope = array('choice_2', 3);
 
-		protected static $importScope =
+		protected $importScope =
 			array(
 				'multiChoice' => array('choice_1', 3)
 			);
 
 		public function testSetDefault() {
-			$choicePrimitive = $this->create();
+			$choicePrimitive = $this->makePrimitive();
 			$choicePrimitive->setDefault(self::$defaultScope);
 
 			$getDefault = $choicePrimitive->getDefault();
@@ -31,7 +31,7 @@
 		}
 
 		public function testImport() {
-			$choicePrimitive = $this->create();
+			$choicePrimitive = $this->makePrimitive();
 			$choicePrimitive->import(self::$importScope);
 
 			$this->assertEquals($choicePrimitive->isImported(), true);
@@ -49,7 +49,7 @@
 				);
 		}
 
-		protected function create() {
+		protected function makePrimitive() {
 			return Primitive::multiChoice('multiChoice')->
 				setList(self::$list);
 		}
