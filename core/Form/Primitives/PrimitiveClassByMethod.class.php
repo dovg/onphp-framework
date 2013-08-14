@@ -23,16 +23,18 @@
 						$this->getMethodSignature(),
 						$this->value
 					);
+
 				Assert::isInstance($result, $this->ofClassName);
 				$this->value = $result;
+
 				return true;
-
 			} catch (Exception $e) {
-				//wrong value
-			}
-			$this->value = null;
+				$this->value = null;
 
-			return false;
+				return false;
+			}
+
+			Assert::isUnreachable();
 		}
 
 		/**
@@ -49,7 +51,7 @@
 				Assert::isTrue(
 					method_exists($this->ofClassName, $methodName),
 					"knows nothing about '". $this->ofClassName
-						."::{$methodName}' method"
+					."::{$methodName}' method"
 				);
 
 				$this->methodName = $methodName;
