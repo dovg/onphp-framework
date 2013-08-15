@@ -14,8 +14,10 @@
 
 		public function import($scope)
 		{
+			if (!($result = BasePrimitive::import($scope)))
+				return $result;
+
 			try {
-				$this->raw = $scope[$this->name];
 				$this->value = $scope[$this->name];
 
 				$result =
