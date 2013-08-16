@@ -9,7 +9,7 @@
 
 			try {
 				$prm->of('InExIsNaNtClass');
-				$this->fail();
+				$this->fail('wrong parameter, should be ClassNotFoundException exception');
 			} catch (ClassNotFoundException $e) {
 				// pass
 			}
@@ -43,9 +43,21 @@
 
 			try {
 				$prm->setMethodName('::wrap');
+				$this->fail('wrong parameter, should be ClassNotFoundException exception');
+			} catch (ClassNotFoundException $e) {
+				// pass
+			}
+
+			try {
 				$prm->setMethodName('wrap');
+				$this->fail('wrong parameter, should be WrongArgumentException exception');
+			} catch (WrongArgumentException $e) {
+				// pass
+			}
+
+			try {
 				$prm->setMethodName('wrap::');
-				$this->fail();
+				$this->fail('wrong parameter, should be ClassNotFoundException exception');
 			} catch (ClassNotFoundException $e) {
 				// pass
 			}
