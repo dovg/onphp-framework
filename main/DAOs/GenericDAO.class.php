@@ -392,12 +392,12 @@
 			);
 		}
 		
-		private function addObjectToMap(Identifiable $object)
+		protected function addObjectToMap(Identifiable $object)
 		{
 			return $this->identityMap[$object->getId()] = $object;
 		}
 		
-		private function addObjectListToMap($list)
+		protected function addObjectListToMap($list)
 		{
 			foreach ($list as $object)
 				$this->identityMap[$object->getId()] = $object;
