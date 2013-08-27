@@ -9,7 +9,7 @@
  *                                                                          *
  ****************************************************************************/
 
-	final class SequentialCache extends CachePeer
+	class SequentialCache extends CachePeer
 	{
 		/**
 		 * List of all peers, including master
@@ -83,7 +83,7 @@
 				$result = $val->get($key);
 				
 				if (
-					!empty($result)
+					$this->checkGetResult($result)
 					|| $val->isAlive()
 				) {
 					return $result;
@@ -111,6 +111,11 @@
 		public function increment($key, $value)
 		{
 			throw new UnsupportedMethodException('increment is not supported');
+		}
+		
+		protected function checkGetResult($result)
+		{
+			return !empty($result);
 		}
 		
 		protected function store($action, $key, $value, $expires = Cache::EXPIRES_MEDIUM)
