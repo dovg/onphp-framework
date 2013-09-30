@@ -10,22 +10,38 @@
  ***************************************************************************/
 
 	/**
-	 * @ingroup Flow
+	 * @ingroup Http
 	**/
-	class RawView implements View
+	class RedirectResponse extends ModelAndView
 	{
-		private $content = null;
+		private $url = null;
 
-		public function __construct($content)
+		public static function create(array $headers = array(), array $cookies = array())
 		{
-			$this->content = $content;
+			throw new UnsupportedMethodException();
 		}
 
-		public function render($model = null)
+		public function __construct($url, HttpStatus $status = null)
 		{
-			echo $this->content;
+			parent::__construct();
+
+			$this->setUrl($url);
+			$this->setStatus($status ?: new HttpStatus(HttpStatus::CODE_302));
+		}
+
+		public function setUrl($url)
+		{
+			$this->url = $url;
+			$this->getHeaderCollection()->set('Location', $url);
 
 			return $this;
+		}
+
+		public function setStatus(HttpStatus $status)
+		{
+			Assert::isTrue($status->isRedirection());
+
+			return parent::setStatus($status);
 		}
 	}
 ?>

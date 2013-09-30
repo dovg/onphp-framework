@@ -9,23 +9,20 @@
  *                                                                         *
  ***************************************************************************/
 
-	/**
-	 * @ingroup Flow
-	**/
-	class RawView implements View
+	class RawResponseTest extends TestCase
 	{
-		private $content = null;
-
-		public function __construct($content)
+		public function testRawResponse()
 		{
-			$this->content = $content;
-		}
+			$response =
+				new RawResponse(
+					'Goodbye, world!',
+					new HttpStatus(HttpStatus::CODE_200),
+					array('Content-Type' => 'text/plain')
+				);
 
-		public function render($model = null)
-		{
-			echo $this->content;
-
-			return $this;
+			$this->assertEquals('text/plain', $response->getHeader('cOnTeNt-tYpE'));
+			$this->assertEquals('Goodbye, world!', $response->getBody());
 		}
 	}
+
 ?>

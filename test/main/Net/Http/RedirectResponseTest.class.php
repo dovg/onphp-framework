@@ -9,23 +9,29 @@
  *                                                                         *
  ***************************************************************************/
 
-	/**
-	 * @ingroup Flow
-	**/
-	class RawView implements View
+	class RedirectResponseTest extends TestCase
 	{
-		private $content = null;
-
-		public function __construct($content)
+		public function testRedirectResponse()
 		{
-			$this->content = $content;
+			$response =
+				new RedirectResponse(
+					'http://example.com/',
+					new HttpStatus(HttpStatus::CODE_301)
+				);
+
+			$this->assertEquals('http://example.com/', $response->getHeader('Location'));
 		}
 
-		public function render($model = null)
+		/**
+		 * @expectedException WrongArgumentException
+		**/
+		public function testInvalidStatus()
 		{
-			echo $this->content;
-
-			return $this;
+			$response =
+				new RedirectResponse(
+					'http://example.com/',
+					new HttpStatus(HttpStatus::CODE_404)
+				);
 		}
 	}
 ?>

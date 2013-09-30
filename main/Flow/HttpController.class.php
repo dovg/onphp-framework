@@ -12,20 +12,30 @@
 	/**
 	 * @ingroup Flow
 	**/
-	class RawView implements View
+	abstract class HttpController implements Controller
 	{
-		private $content = null;
-
-		public function __construct($content)
+		/**
+		 * @return ModelAndView
+		**/
+		protected function redirect($url, $status = HttpStatus::CODE_302)
 		{
-			$this->content = $content;
+			return new RedirectResponse($url, new HttpStatus($status));
 		}
 
-		public function render($model = null)
+		/**
+		 * @return ModelAndView
+		**/
+		protected function createNotFoundResponse()
 		{
-			echo $this->content;
+			return new RawResponse(null, new HttpStatus(HttpStatus::CODE_404));
+		}
 
-			return $this;
+		/**
+		 * @return ModelAndView
+		**/
+		protected function createForbiddenResponse()
+		{
+			return new RawResponse(null, new HttpStatus(HttpStatus::CODE_403));
 		}
 	}
 ?>

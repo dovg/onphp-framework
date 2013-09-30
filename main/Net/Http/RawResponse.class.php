@@ -10,22 +10,25 @@
  ***************************************************************************/
 
 	/**
-	 * @ingroup Flow
+	 * @ingroup Http
 	**/
-	class RawView implements View
+	class RawResponse extends ModelAndView
 	{
-		private $content = null;
-
-		public function __construct($content)
+		public static function create(array $headers = array(), array $cookies = array())
 		{
-			$this->content = $content;
+			throw new UnsupportedMethodException();
 		}
 
-		public function render($model = null)
+		public function __construct(
+			$content = '', HttpStatus $status = null, array $headers = array()
+		)
 		{
-			echo $this->content;
+			parent::__construct($headers);
 
-			return $this;
+			if ($status)
+				$this->setStatus($status);
+			
+			$this->setView(new RawView($content));
 		}
 	}
 ?>
