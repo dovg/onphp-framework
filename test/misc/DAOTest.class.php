@@ -853,6 +853,64 @@
 			$this->drop();
 		}
 		
+		public function testPrimitiveLists()
+		{
+			$this->create();
+			
+			$objectList = array();
+			
+			for ($i = 16; $i <= 18; $i ++)
+				$objectList[] =
+					TestCity::dao()->add(
+						TestCity::create()->
+						setName('Arzamas-'.$i)
+					);
+			
+			//$this->assertNull(print_r($objectList, true));
+			
+			$prm =
+				Primitive::identifierlist('cities')->
+				setIgnoreWrong(true)->
+				of('TestCity');
+			
+			$this->assertTrue(
+				$prm->import(
+						array(
+						'cities' =>
+							array_merge(
+								ArrayUtils::getIdsArray($objectList),
+								array(4,5,6, 'foo', 'bar')
+							)
+						)
+					)
+			);
+			
+			$this->assertEquals(3, count($prm->getValue()));
+			
+			$objectList = $prm->getValue();
+			
+			$this->assertInstanceOf('TestCity', reset($objectList));
+			
+			$prm =
+				Primitive::identifierlist('cities')->
+				setIgnoreWrong(false)->
+				of('TestCity');
+			
+			$this->assertFalse(
+				$prm->import(
+						array(
+						'cities' =>
+							array_merge(
+								ArrayUtils::getIdsArray($objectList),
+								array(4,5,6)
+							)
+						)
+					)
+			);
+			
+			$this->drop();
+		}
+		
 		protected function getSome()
 		{
 			for ($i = 1; $i < 3; ++$i) {
