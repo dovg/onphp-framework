@@ -28,7 +28,7 @@
 			if ($status)
 				$this->setStatus($status);
 			
-			$this->setView(new RawView($content));
+			$this->setView(new SimpleView($content));
 		}
 	}
 ?>

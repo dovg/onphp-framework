@@ -12,7 +12,7 @@
 	/**
 	 * @ingroup Flow
 	**/
-	class RawView implements View
+	class SimpleView implements View
 	{
 		private $content = null;
 
