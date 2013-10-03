@@ -433,6 +433,8 @@
 			if ($this->offset)
 				$query .= ' OFFSET '.$this->offset;
 			
+			//FIXME: for update clause needed
+			
 			return $query;
 		}
 		
