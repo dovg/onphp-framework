@@ -185,7 +185,7 @@
 				.(
 					$noWait
 						? ' NOWAIT '
-						: null;
+						: null
 				);
 		}
 		
