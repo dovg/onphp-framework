@@ -33,6 +33,9 @@
 		
 		private $having			= null;
 		
+		private $forUpdate		= false;
+		private $noWait			= false;
+		
 		public function __construct()
 		{
 			$this->joiner = new Joiner();
@@ -433,7 +436,8 @@
 			if ($this->offset)
 				$query .= ' OFFSET '.$this->offset;
 			
-			//FIXME: for update clause needed
+			if ($this->forUpdate)
+				$query .= ' '.$dialect->forUpdate($this->noWait);
 			
 			return $query;
 		}
@@ -453,6 +457,20 @@
 		public function dropOrder()
 		{
 			$this->order = new OrderChain();
+			return $this;
+		}
+		
+		public function forUpdate($really = true)
+		{
+			$this->forUpdate = ($really === true);
+			
+			return $this;
+		}
+		
+		public function noWait($really = true)
+		{
+			$this->noWait = ($really = true);
+			
 			return $this;
 		}
 		

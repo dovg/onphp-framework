@@ -119,5 +119,10 @@
 			
 			return $string;	
 		}
+		
+		public function forUpdate($noWait = false)
+		{
+			return null;
+		}
 	}
 ?>

@@ -178,6 +178,17 @@
 			return $string;	
 		}
 		
+		public function forUpdate($noWait = false)
+		{
+			return
+				' FOR UPDATE '
+				.(
+					$noWait
+						? ' NOWAIT '
+						: null;
+				);
+		}
+		
 		protected function makeSequenceName(DBColumn $column)
 		{
 			return $column->getTable()->getName().'_'.$column->getName();

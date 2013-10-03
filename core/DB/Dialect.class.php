@@ -159,5 +159,10 @@
 		{
 			throw new UnimplementedFeatureException();
 		}
+		
+		public function forUpdate($noWait = false)
+		{
+			throw new UnimplementedFeatureException();
+		}
 	}
 ?>
