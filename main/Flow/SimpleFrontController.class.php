@@ -52,7 +52,7 @@
 		{
 			$this->request = $request;
 			
-			$this->prepareRouter()->route($request);
+			$this->getRouter()->route($request);
 
 			$this->prepareResponseFormat($request);
 
