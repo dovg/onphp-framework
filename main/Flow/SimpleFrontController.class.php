@@ -35,6 +35,14 @@
 		
 		private $templatesDirectory		= null;
 		
+		/**
+		 * @return SimpleFrontController
+		 */
+		public static function create($templatesDirectory)
+		{
+			return new static($templatesDirectory);
+		}
+		
 		public function __construct($templatesDirectory)
 		{
 			$this->templatesDirectory = $templatesDirectory;
