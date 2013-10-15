@@ -29,7 +29,7 @@
 		// reference, not copy
 		private $session	= array();
 		
-		// uploads
+		// uploads and downloads (CurlHttpClient)
 		private $files		= array();
 		
 		// all other sh1t
@@ -37,16 +37,54 @@
 		
 		private $headers	= array();
 		
+		/**
+		 * @var HttpMethod
+		 */
 		private $method		= null;
 		
+		/**
+		 * @var HttpUrl
+		 */
 		private $url		= null;
+
+		//for CurlHttpClient if you need to send raw CURLOPT_POSTFIELDS
+		private $body		= null;
 		
 		/**
 		 * @return HttpRequest
 		**/
 		public static function create()
 		{
-			return new self;
+			return new static();
+		}
+
+		/**
+		 * @return HttpRequest
+		**/
+		public static function createFromGlobals()
+		{
+			$request =
+				static::create()->
+				setGet($_GET)->
+				setPost($_POST)->
+				setServer($_SERVER)->
+				setCookie($_COOKIE)->
+				setFiles($_FILES);
+
+			if (isset($_SESSION))
+				$request->setSession($_SESSION);
+
+			foreach ($_SERVER as $name => $value)
+				if (substr($name, 0, 5) === 'HTTP_')
+					$request->setHeaderVar(substr($name, 5), $value);
+
+			if (
+				$request->hasServerVar('CONTENT_TYPE')
+				&& $request->getServerVar('CONTENT_TYPE') !== 'application/x-www-form-urlencoded'
+			)
+				$request->setBody(file_get_contents('php://input'));
+
+			return $request;
 		}
 		
 		public function &getGet()
@@ -138,7 +176,7 @@
 		public function setServer(array $server)
 		{
 			$this->server = $server;
-			
+
 			return $this;
 		}
 		
@@ -340,6 +378,26 @@
 		public function getUrl()
 		{
 			return $this->url;
+		}
+		
+		public function hasBody()
+		{
+			return $this->body !== null;
+		}
+		
+		public function getBody()
+		{
+			return $this->body;
+		}
+		
+		/**
+		 * @param string $body
+		 * @return HttpRequest
+		 */
+		public function setBody($body)
+		{
+			$this->body = $body;
+			return $this;
 		}
 	}
 ?>
