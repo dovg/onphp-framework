@@ -85,7 +85,8 @@
 				$request->setBody(file_get_contents('php://input'));
 			
 			$request->setMethod(
-				HttpMethod::createByName(
+				HttpMethod::any()->
+				createByName(
 					$request->getServerVar('REQUEST_METHOD')
 				)
 			);

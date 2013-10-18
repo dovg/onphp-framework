@@ -58,7 +58,13 @@
 			return new self(self::POST);
 		}
 		
-		public static function createByName($name)
+		public static function any()
+		{
+			return self::get();
+		}
+
+
+		public function createByName($name)
 		{
 			$key = array_search($name, $this->names);
 			
