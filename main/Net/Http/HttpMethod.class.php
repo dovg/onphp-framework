@@ -57,5 +57,15 @@
 		{
 			return new self(self::POST);
 		}
+		
+		public static function createByName($name)
+		{
+			$key = array_search($name, $this->names);
+			
+			if ($key === false)
+				throw new WrongArgumentException();
+			
+			return new self($key);
+		}
 	}
 ?>
