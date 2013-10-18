@@ -86,9 +86,7 @@
 			
 			$request->setMethod(
 				HttpMethod::any()->
-				createByName(
-					$request->getServerVar('REQUEST_METHOD')
-				)
+				createByName($request->getServerVar('REQUEST_METHOD'))
 			);
 
 			return $request;
