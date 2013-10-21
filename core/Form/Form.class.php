@@ -390,6 +390,16 @@
 			return $this->proto;
 		}
 		
+		
+		public function merge(Form $form)
+		{
+			foreach ($form->getPrimitiveList() as $prm) {
+				$this->add($prm);
+			}
+			
+			return $this;
+		}
+		
 		/**
 		 * @return Form
 		**/
