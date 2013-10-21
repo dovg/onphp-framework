@@ -86,6 +86,7 @@
 			)
 				$request->setBody(file_get_contents('php://input'));
 			
+			//FIXME: change it after master's merge
 			$request->setMethod(
 				HttpMethod::any()->
 				createByName($request->getServerVar('REQUEST_METHOD'))
