@@ -400,6 +400,13 @@
 			return $this;
 		}
 		
+		
+		public function __clone()
+		{
+			foreach ($this->primitives as $name => $primitive) {
+				$this->primitives[$name] = clone $primitive;
+			}
+		}
 		/**
 		 * @return Form
 		**/
