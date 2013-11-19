@@ -390,7 +390,6 @@
 			return $this->proto;
 		}
 		
-		
 		public function merge(Form $form)
 		{
 			foreach ($form->getPrimitiveList() as $prm) {
@@ -407,6 +406,7 @@
 				$this->primitives[$name] = clone $primitive;
 			}
 		}
+		
 		/**
 		 * @return Form
 		**/
