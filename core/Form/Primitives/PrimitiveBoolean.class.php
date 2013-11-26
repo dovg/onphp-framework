@@ -16,10 +16,6 @@
 	{
 		public function import($scope)
 		{
-			if ($this->imported) {
-				return true;
-			}
-
 			if (isset($scope[$this->name]))
 				$this->value = true;
 			else
@@ -43,7 +39,7 @@
 		
 		public function isImported()
 		{
-			return $this->imported;
+			return ($this->imported && $this->value);
 		}
 	}
 ?>
