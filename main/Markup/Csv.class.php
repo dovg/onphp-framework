@@ -14,15 +14,15 @@
 	 * @see http://tools.ietf.org/html/rfc4180
 	 * @todo implement parse
 	**/
-	final class Csv
+	class Csv
 	{
 		const SEPARATOR					= "\x2C";
 		const QUOTE						= "\x22";
 		const CRLF						= "\x0D\x0A";
 		const QUOTE_REQUIRED_PATTERN	= "/(\x2C|\x22|\x0D|\x0A)/";
-		
+
 		private $separator				= self::SEPARATOR;
-		
+
 		private $header	= false;
 		private $data	= array();
 		
@@ -31,12 +31,13 @@
 		**/
 		public static function create($header = false)
 		{
-			return new self($header);
+			return new static($header);
 		}
 		
 		public function __construct($header = false)
 		{
 			$this->header = (true === $header);
+			$this->separator = static::SEPARATOR;
 		}
 		
 		public function getArray()
