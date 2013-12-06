@@ -161,21 +161,47 @@
 		
 		public function quoteIpInRange($range, $ip)
 		{
-			$string = '';
-			
-			if ($ip instanceof DialectString)
-				$string .= $ip->toDialectString($this);
+			if ($range instanceof DBField)
+				$quotedRange = $this->quoteExpression($range);
 			else
-				$string .= $this->quoteValue($ip);
-			
-			$string .= ' <<= ';
-			
-			if ($range instanceof DialectString)
-				$string .= $range->toDialectString($this);
-			else
-				$string .= $this->quoteValue($range);
-			
-			return $string;	
+				$quotedRange = $this->getCastedExpr($range, 'ip4r');
+
+			return 
+				$this->quoteExpression($ip)
+				.' <<= '
+				.$quotedRange;
+		}
+		
+		public function quotePointInPolygon($polygon, $point)
+		{
+			return 
+				$this->getCastedExpr($polygon, 'POLYGON')
+				.' @> '
+				.$this->getCastedExpr($point, 'POINT');
+		}
+		
+		public function quoteDistanceBetweenPoints($left, $right)
+		{
+			return 
+				$this->getCastedExpr($left, 'POINT')
+				.' <-> '
+				.$this->getCastedExpr($right, 'POINT');
+		}
+		
+		public function quoteEqPolygons($left, $right)
+		{
+			return 
+				$this->getCastedExpr($left, 'POLYGON')
+				.' ~= '
+				.$this->getCastedExpr($right, 'POLYGON');			
+		}
+		
+		public function quoteEqPoints($left, $right)
+		{
+			return 
+				$this->getCastedExpr($left, 'POINT')
+				.' ~= '
+				.$this->getCastedExpr($right, 'POINT');			
 		}
 		
 		public function forUpdate($noWait = false)

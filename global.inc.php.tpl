@@ -18,11 +18,11 @@
 	
 	/* void */ function __autoload_failed($classname, $message)
 	{
-		eval(
-			'if (!class_exists("ClassNotFoundException", false)) { '
-			.'final class ClassNotFoundException extends BaseException {/*_*/} }'
-			.'throw new ClassNotFoundException("'.$classname.': '.$message.'");'
-		);
+		if (!class_exists('ClassNotFoundException', false)) {
+			final class ClassNotFoundException extends BaseException {/*_*/}
+		}
+
+		throw new ClassNotFoundException(sprintf('"%s": "%s"', $classname, $message));
 	}
 	
 	// file extensions
@@ -116,6 +116,8 @@
 		.ONPHP_MAIN_PATH.'DAOs'.DIRECTORY_SEPARATOR.'Handlers'.PATH_SEPARATOR
 		.ONPHP_MAIN_PATH.'DAOs'.DIRECTORY_SEPARATOR.'Workers'.PATH_SEPARATOR
 		
+		.ONPHP_MAIN_PATH.'Geometry'		.PATH_SEPARATOR		
+		
 		.ONPHP_MAIN_PATH.'Flow'			.PATH_SEPARATOR
 		.ONPHP_MAIN_PATH.'SPL'			.PATH_SEPARATOR
 		
@@ -193,5 +195,5 @@
 	
 	//NOTE: disable by default
 	//see http://pgfoundry.org/docman/view.php/1000079/117/README.txt
-	//define('POSTGRES_IP4_ENABLED', true);
+	define('POSTGRES_IP4_ENABLED', true);
 ?>

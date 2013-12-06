@@ -30,8 +30,9 @@
 
 			$model = Model::create();
 
-			$this->assertTrue(
-				$toStringView->toString($model) == $renderView->toString($model)
+			$this->assertEquals(
+				$toStringView->toString($model),
+				$renderView->toString($model)
 			);
 		}
 	}

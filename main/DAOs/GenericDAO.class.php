@@ -17,12 +17,25 @@
 	abstract class GenericDAO extends Singleton implements BaseDAO
 	{
 		private $identityMap	= array();
+		protected $useSlave		= false;
 		
 		protected $linkName		= null;
 		
 		abstract public function getTable();
 		abstract public function getObjectName();
-		
+
+		public function setUseSlave($isUseSlave)
+		{
+			$this->useSlave = ($isUseSlave == true);
+
+			return $this;
+		}
+
+		public function isUseSlave()
+		{
+			return $this->useSlave;
+		}
+
 		public function makeObject($array, $prefix = null)
 		{
 			if (

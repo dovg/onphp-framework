@@ -332,7 +332,7 @@
 				);
 				$obj->setArguments($conf->getArguments());
 
-				$result = $obj->declare();
+				$result = $obj->declareExchange();
 			} catch (Exception $e) {
 				$this->clearConnection();
 
@@ -435,7 +435,7 @@
 				);
 				$obj->setArguments($conf->getArguments());
 				
-				$result = $obj->declare();
+				$result = $obj->declareQueue();
 			} catch (Exception $e) {
 				$this->clearConnection();
 
@@ -451,7 +451,7 @@
 				"Could not declare queue"
 			);
 
-			return $result;
+			return $this;
 		}
 
 		/**

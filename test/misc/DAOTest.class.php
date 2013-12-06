@@ -911,6 +911,100 @@
 			$this->drop();
 		}
 		
+		public function testPointAndPolygonProperties()
+		{
+			$this->create();			
+			
+			$squareLocation =
+				Polygon::create(
+					array(
+						array(-21, -21),
+						array(-21,  21),
+						array( 21,  21),
+						array( 21, -21)				
+					)
+				);
+			
+			$squareCapital =
+				Point::create(array(0, 0));	
+
+			$triangleLocation =
+				Polygon::create(
+					array(
+						array( 5,  5 ),
+						array(55,  5 ),
+						array( 5,  55)			
+					)
+				);
+			
+			$triangleCapital =
+				Point::create(array(6, 6));
+			
+			TestRegion::dao()->
+				add(
+					TestRegion::create()-> 
+					setName('Great Square')->
+					setLocation($squareLocation)->
+					setCapital($squareCapital)						
+				);
+
+			TestRegion::dao()->
+				add(
+					TestRegion::create()-> 
+					setName('Great Triangle')->
+					setLocation($triangleLocation)->
+					setCapital($triangleCapital)		
+				);				
+			
+			$triangle =
+				Criteria::create(TestRegion::dao())->
+				add(
+					Expression::eqPoints(
+						DBField::create('capital'),
+						$triangleCapital
+					)
+				)->
+				get();
+
+			$this->assertInstanceOf('Polygon', $triangle->getLocation());	
+			$this->assertEquals('Great Triangle', $triangle->getName());
+
+			$list =
+				Criteria::create(TestRegion::dao())->
+				addOrder('id')->
+				getList();
+
+			$this->assertEquals(2, count($list));
+
+			$this->assertInstanceOf('Polygon', $list[0]->getLocation());
+			$this->assertInstanceOf('Polygon', $list[1]->getLocation());			
+
+			$this->assertTrue(
+				$squareLocation->
+					isEqual($list[0]->getLocation())
+			);
+
+			$this->assertTrue(
+				$triangleLocation->
+					isEqual($list[1]->getLocation())
+			);
+
+			$square =
+				Criteria::create(TestRegion::dao())->
+				add(
+					Expression::containsPoint(
+						DBField::create('location'),
+						Point::create(array(1, 1))
+					)
+				)->
+				get();
+
+			$this->assertInstanceOf('Polygon', $square->getLocation());
+			$this->assertEquals('Great Square', $square->getName());
+			
+			$this->drop();			
+		}		
+		
 		protected function getSome()
 		{
 			for ($i = 1; $i < 3; ++$i) {

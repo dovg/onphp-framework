@@ -72,12 +72,14 @@
 					$this->value = new $this->className($this->value);
 				} catch (MissingElementException $e) {
 					$this->value = null;
+					$this->imported = false;
 					
 					return false;
 				}
 				
 				return true;
-			}
+			} else
+				$this->imported = false;
 			
 			return $result;
 		}

@@ -1032,6 +1032,13 @@
 				if (isset($xmlClass['extends']))
 					$this->liaisons[$class->getName()] = (string) $xmlClass['extends'];
 				
+				// use slave db
+				if (
+					isset($xmlClass['fromSlave'])
+					&& $xmlClass['fromSlave'] == true
+				)
+					$class->setFromSlave(true);
+				
 				// populate implemented interfaces
 				foreach ($xmlClass->implement as $xmlImplement)
 					$class->addInterface((string) $xmlImplement['interface']);

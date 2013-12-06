@@ -33,9 +33,13 @@
 		added HttpRequest::createFromGlobals()
 
 2013-03-31  Nikita V. Konstantinov
-	
+
 	* core/Base/Singleton.class.php:
 		Singleton 2+ constructor arguments now without eval
+
+2012-12-03 Alexander A. Zaytsev
+
+	* core/OSQL/SQLCase.class.php: implementation of SQL CASE expression added.
 
 2013-01-09 Evgeny V. Kokovikhin
 	* test/main/Utils/AMQP/AMQPPeclTest.class.php:
