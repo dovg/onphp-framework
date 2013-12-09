@@ -9,8 +9,11 @@
 	*                                                                         *
 	***************************************************************************/
 
+<<<<<<< HEAD
 	namespace Onphp;
 
+=======
+>>>>>>> 1.0-dovg
 	final class RedisNoSQLList implements Listable
 	{
 		private $redis		= null;
@@ -18,7 +21,11 @@
 		private $position	= null;
 		private $timeout	= null;
 		
+<<<<<<< HEAD
 		public function __construct(\Redis $redis, $key, $timeout = null)
+=======
+		public function __construct(Redis $redis, $key, $timeout = null)
+>>>>>>> 1.0-dovg
 		{
 			$this->redis	= $redis;
 			$this->key		= $key;
@@ -27,7 +34,11 @@
 		
 		/**
 		 * @param mixed $value
+<<<<<<< HEAD
 		 * @return RedisList
+=======
+		 * @return RedisList 
+>>>>>>> 1.0-dovg
 		 */
 		public function append($value)
 		{
@@ -41,7 +52,11 @@
 		
 		/**
 		 * @param mixed $value
+<<<<<<< HEAD
 		 * @return RedisList
+=======
+		 * @return RedisList 
+>>>>>>> 1.0-dovg
 		 */
 		public function prepend($value)
 		{
@@ -54,7 +69,11 @@
 		}
 		
 		/**
+<<<<<<< HEAD
 		 * @return RedisList
+=======
+		 * @return RedisList 
+>>>>>>> 1.0-dovg
 		 */
 		public function clear()
 		{

@@ -22,7 +22,11 @@
 
 
         /**
+<<<<<<< HEAD
          * @var \AMQPChannel
+=======
+         * @var AMQPChannel
+>>>>>>> 1.0-dovg
          */
         protected $link = null;
 
@@ -62,10 +66,17 @@
 		}
 
 		/**
+<<<<<<< HEAD
 		 * @throws \Onphp\AMQPServerException|AMQPServerConnectionException
 		 * @param sting $deliveryTag
 		 * @param bool $multiple
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @throws AMQPServerException|AMQPServerConnectionException
+		 * @param sting $deliveryTag
+		 * @param bool $multiple
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function basicAck($deliveryTag, $multiple = false)
 		{
@@ -77,7 +88,11 @@
 						? AMQP_MULTIPLE
 						: self::AMQP_NONE
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -99,7 +114,11 @@
 		 * can't get $consumerTag
 		 * @throws AMQPServerQueueException|AMQPServerConnectionException|WrongStateException
 		 * @param string $consumerTag
+<<<<<<< HEAD
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function basicCancel($consumerTag)
 		{
@@ -111,7 +130,11 @@
 
 				$result = $obj->cancel($consumerTag);
 
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 				
 				throw new AMQPServerException(
@@ -130,11 +153,19 @@
 		}
 
 		/**
+<<<<<<< HEAD
 		 * @return \Onphp\AMQPChannelInterface
 		**/
 		public function basicConsume($queue, $autoAck, AMQPConsumer $callback)
 		{
 			Assert::isInstance($callback, '\Onphp\AMQPPeclQueueConsumer');
+=======
+		 * @return AMQPChannelInterface
+		**/
+		public function basicConsume($queue, $autoAck, AMQPConsumer $callback)
+		{
+			Assert::isInstance($callback, 'AMQPPeclQueueConsumer');
+>>>>>>> 1.0-dovg
 
 			try {
 				$this->consumer = $callback->
@@ -156,7 +187,11 @@
 						? AMQP_AUTOACK
 						: self::AMQP_NONE
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -182,7 +217,11 @@
 						? AMQP_AUTOACK
 						: self::AMQP_NONE
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -204,8 +243,13 @@
 		 * @throws AMQPServerExchangeException|AMQPServerConnectionException
 		 * @param string $exchange
 		 * @param string $routingKey
+<<<<<<< HEAD
 		 * @param \Onphp\AMQPOutgoingMessage $msg
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @param AMQPOutgoingMessage $msg
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function basicPublish(
 			$exchange, $routingKey, AMQPOutgoingMessage $msg
@@ -219,7 +263,11 @@
 					$msg->getBitmask(new AMQPPeclOutgoingMessageBitmask()),
 					$msg->getProperties()
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -240,7 +288,11 @@
 		/**
 		 * @param int $prefetchSize
 		 * @param int $prefetchCount
+<<<<<<< HEAD
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function basicQos($prefetchSize, $prefetchCount)
 		{
@@ -249,7 +301,11 @@
 					$prefetchSize,
 					$prefetchCount
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -268,11 +324,19 @@
 		}
 
 		/**
+<<<<<<< HEAD
 		 * @throws \Onphp\AMQPServerException|AMQPServerConnectionException
 		 * @param string $destinationName
 		 * @param string $sourceName
 		 * @param string $routingKey
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @throws AMQPServerException|AMQPServerConnectionException
+		 * @param string $destinationName
+		 * @param string $sourceName
+		 * @param string $routingKey
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function exchangeBind($destinationName, $sourceName, $routingKey)
 		{
@@ -283,7 +347,11 @@
 					$sourceName,
 					$routingKey
 				);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -307,10 +375,17 @@
 		}
 
 		/**
+<<<<<<< HEAD
 		 * @throws \Onphp\AMQPServerException|AMQPServerConnectionException
 		 * @param string $name
 		 * @param \Onphp\AMQPExchangeConfig $conf
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @throws AMQPServerException|AMQPServerConnectionException
+		 * @param string $name
+		 * @param AMQPExchangeConfig $conf
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		public function exchangeDeclare($name, AMQPExchangeConfig $conf)
 		{
@@ -323,7 +398,11 @@
 
 			try {
 				$this->exchangeList[$name] =
+<<<<<<< HEAD
 					new \AMQPExchange($this->getChannelLink());
+=======
+					new AMQPExchange($this->getChannelLink());
+>>>>>>> 1.0-dovg
 
 				$obj = $this->exchangeList[$name];
 
@@ -334,8 +413,13 @@
 				);
 				$obj->setArguments($conf->getArguments());
 
+<<<<<<< HEAD
 				$result = $obj->declare();
 			} catch (\Exception $e) {
+=======
+				$result = $obj->declareExchange();
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -368,7 +452,11 @@
 			try {
 				$obj = $this->lookupExchange($name);
 				$result = $obj->delete($name, $bitmask);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -397,7 +485,11 @@
 			try {
 				$obj = $this->lookupQueue($name);
 				$result = $obj->bind($exchange, $routingKey);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -428,7 +520,11 @@
 					unset($this->queueList[$name]);
 				
 				$this->queueList[$name] =
+<<<<<<< HEAD
 					new \AMQPQueue($this->getChannelLink());
+=======
+					new AMQPQueue($this->getChannelLink());
+>>>>>>> 1.0-dovg
 
 				$obj = $this->queueList[$name];
 				$obj->setName($name);
@@ -437,8 +533,13 @@
 				);
 				$obj->setArguments($conf->getArguments());
 				
+<<<<<<< HEAD
 				$result = $obj->declare();
 			} catch (\Exception $e) {
+=======
+				$result = $obj->declareQueue();
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -453,7 +554,7 @@
 				"Could not declare queue"
 			);
 
-			return $result;
+			return $this;
 		}
 
 		/**
@@ -465,7 +566,11 @@
 			try {
 				$obj = $this->lookupQueue($name);
 				$result = $obj->delete();
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -494,7 +599,11 @@
 			try {
 				$obj = $this->lookupQueue($name);
 				$result = $obj->purge();
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 
 				throw new AMQPServerException(
@@ -521,7 +630,11 @@
 			try {
 				$obj = $this->lookupQueue($name);
 				$result = $obj->unbind($exchange, $routingKey);
+<<<<<<< HEAD
 			} catch (\Exception $e) {
+=======
+			} catch (Exception $e) {
+>>>>>>> 1.0-dovg
 				$this->clearConnection();
 				
 				throw new AMQPServerException(
@@ -540,8 +653,13 @@
 		}
 
 		/**
+<<<<<<< HEAD
 		 * @throws \Onphp\AMQPServerConnectionException
 		 * @return \AMQPExchange
+=======
+		 * @throws AMQPServerConnectionException
+		 * @return AMQPExchange
+>>>>>>> 1.0-dovg
 		**/
 		protected function lookupExchange($name)
 		{
@@ -549,7 +667,11 @@
 
 			if (!isset($this->exchangeList[$name])) {
 				$this->exchangeList[$name] =
+<<<<<<< HEAD
 					new \AMQPExchange($this->getChannelLink());
+=======
+					new AMQPExchange($this->getChannelLink());
+>>>>>>> 1.0-dovg
 				$this->exchangeList[$name]->setName($name);
 			}
 
@@ -576,7 +698,11 @@
 			$this->checkConnection();
 
 			if (!isset($this->queueList[$name])) {
+<<<<<<< HEAD
 				$this->queueList[$name] = new \AMQPQueue($this->getChannelLink());
+=======
+				$this->queueList[$name] = new AMQPQueue($this->getChannelLink());
+>>>>>>> 1.0-dovg
 				if ($name != self::NIL)
 						$this->queueList[$name]->setName($name);
 			}
@@ -624,7 +750,11 @@
 		protected function getChannelLink()
 		{
 			if (!$this->link) {
+<<<<<<< HEAD
 				$this->link = new \AMQPChannel(
+=======
+				$this->link = new AMQPChannel(
+>>>>>>> 1.0-dovg
 					$this->getTransport()->getLink()
 				);
 			}
@@ -634,7 +764,11 @@
 
 		/**
 		 * we dont know if connection is boken until request is made
+<<<<<<< HEAD
 		 * @return \Onphp\AMQPPeclChannel
+=======
+		 * @return AMQPPeclChannel
+>>>>>>> 1.0-dovg
 		 */
 		protected function checkConnection()
 		{

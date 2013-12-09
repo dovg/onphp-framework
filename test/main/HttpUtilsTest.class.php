@@ -20,6 +20,8 @@
 					\Onphp\HttpUrl::create()->parse('https://github.com/')
 				)->
 				setMethod(\Onphp\HttpMethod::get());
+				setHeaderVar('User-Agent', 'onphp-test')->
+				setMethod(HttpMethod::get());
 			
 			try {
 				$response = \Onphp\CurlHttpClient::create()->
