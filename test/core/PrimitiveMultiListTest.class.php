@@ -1,5 +1,7 @@
 <?php
 
+	namespace Onphp\Test;
+	
 	final class PrimitiveMultiListTest extends TestCase
 	{
 		protected $list =
@@ -40,7 +42,7 @@
 		}
 
 		protected function makePrimitive() {
-			return Primitive::multiChoice('multiChoice')->
+			return \Onphp\Primitive::multiChoice('multiChoice')->
 				setList($this->list)->
 				setDefault($this->defaultScope);
 		}

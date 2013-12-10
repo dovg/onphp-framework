@@ -23,8 +23,6 @@
 		
 		protected $linkName		= null;
 		
-		protected $linkName		= null;
-		
 		abstract public function getTable();
 		abstract public function getObjectName();
 

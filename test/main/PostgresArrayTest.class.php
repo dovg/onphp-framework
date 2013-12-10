@@ -9,12 +9,14 @@
  *                                                                         *
  ***************************************************************************/
 
+	namespace Onphp\Test;
+	
 	final class PostgresArrayTest extends TestCase
 	{
 		public function testNumericQuoting()
 		{
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					array(
 						array(1, 2, 3),
 						array(4, 5, 6)
@@ -25,7 +27,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					array()
 				)->
 				toString(),
@@ -33,7 +35,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					array(
 						array(1.1, 2.2, 3),
 						array(4.2, 5.1, 6.12)
@@ -48,7 +50,7 @@
 		public function testNumericUnquoting()
 		{
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					'{{{11,22},{33,44}},{{55,66},{77,88}}}'
 				)->
 				getArrayCopy(),
@@ -65,7 +67,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					'{{1;2};{3;4}}',
 					';'
 				)->
@@ -77,7 +79,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					'{}'
 				)->
 				getArrayCopy(),
@@ -85,7 +87,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresArray::create(
+				\Onphp\PostgresArray::create(
 					''
 				)->
 				getArrayCopy(),
@@ -96,7 +98,7 @@
 		public function testTextQuoting()
 		{
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					array(
 						array(1, 2, 3),
 						array(4, 5, 6)
@@ -107,7 +109,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					array('one """ string with "quotes"')
 				)->
 				toString(),
@@ -115,7 +117,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					array('\'single\' quotes \n\n\n')
 				)->
 				toString(),
@@ -123,7 +125,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					array('"some" string\\ with $var')
 				)->
 				toString(),
@@ -131,7 +133,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					array(
 						array(''),
 						array('')
@@ -145,7 +147,7 @@
 		public function testTextUnquoting()
 		{
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					'{"string\\\\ with $var","\\"quoted\\" string"}'
 				)->
 				getArrayCopy(),
@@ -156,7 +158,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					'{"string\\\\ with $var","\\"quoted\\" string"}'
 				)->
 				getArrayCopy(),
@@ -167,7 +169,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					'{{simpletext;"text with spaces"};{\'quoted\'text;"z;z"}}',
 					';'
 				)->
@@ -179,7 +181,7 @@
 			);
 			
 			$this->assertEquals(
-				PostgresTextArray::create(
+				\Onphp\PostgresTextArray::create(
 					'{"",""}'
 				)->
 				getArrayCopy(),

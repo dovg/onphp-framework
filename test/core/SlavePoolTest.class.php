@@ -1,5 +1,7 @@
 <?php
-	final class DBMock extends DB
+	namespace Onphp\Test;
+	
+	final class DBMock extends \Onphp\DB
 	{
 		private $connected = false;
 		private $failConnect = false;
@@ -9,9 +11,9 @@
 			return new self;
 		}
 		
-		public static function getDialect()
+		public function spawnDialect()
 		{
-			return ImaginaryDialect::me();
+			return \Onphp\ImaginaryDialect::me();
 		}
 		
 		public function __destruct()
@@ -47,7 +49,7 @@
 		{
 			if ($this->failConnect)
 					{
-						throw new DatabaseException('Connection failed');
+						throw new \Onphp\DatabaseException('Connection failed');
 					}
 			
 			$this->connected = true;
@@ -67,32 +69,32 @@
 
 		public function queryRaw($queryString)
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 
-		public function queryRow(Query $query)
+		public function queryRow(\Onphp\Query $query)
 		{
 			throw new DatabaseException($this->hostname);
 		}
 
-		public function querySet(Query $query)
+		public function querySet(\Onphp\Query $query)
 		{
 			throw new DatabaseException($this->hostname);
 		}
 
-		public function queryColumn(Query $query)
+		public function queryColumn(\Onphp\Query $query)
 		{
 			throw new DatabaseException($this->hostname);
 		}
 
-		public function queryCount(Query $query)
+		public function queryCount(\Onphp\Query $query)
 		{
 			throw new DatabaseException($this->hostname);
 		}
 
 		public function setDbEncoding()
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 		
 		public function obtainSequence($sequence)
@@ -101,7 +103,7 @@
 		}
 	}
 
-	final class FakeDAO extends StorableDAO
+	final class FakeDAO extends \Onphp\StorableDAO
 	{
 		protected $useSlave = true;
 		
@@ -121,11 +123,11 @@
 		}
 	}
 
-	final class FakeObject extends IdentifiableObject implements Prototyped
+	final class FakeObject extends \Onphp\IdentifiableObject implements \Onphp\Prototyped
 	{
 		public static function proto()
 		{
-			return Singleton::getInstance('ProtoFakeObject');
+			return \Onphp\Singleton::getInstance('ProtoFakeObject');
 		}
 		
 		public function getId()
@@ -134,7 +136,7 @@
 		}
 	}
 
-	final class ProtoFakeObject extends AbstractProtoClass
+	final class ProtoFakeObject extends \Onphp\AbstractProtoClass
 	{
 		protected function makePropertyList()
 		{
@@ -142,24 +144,24 @@
 		}
 	}
 
-	final class FakeWorker extends BaseDaoWorker
+	final class FakeWorker extends \Onphp\BaseDaoWorker
 	{
 		public function getById($id)
 		{
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getByLogic(LogicalObject $logic)
+		public function getByLogic(\Onphp\LogicalObject $logic)
 		{
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getByQuery(SelectQuery $query)
+		public function getByQuery(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getCustom(SelectQuery $query)
+		public function getCustom(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchObject($this->getSimpleQuery());
 		}
@@ -169,12 +171,12 @@
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getListByQuery(SelectQuery $query)
+		public function getListByQuery(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getListByLogic(LogicalObject $logic)
+		public function getListByLogic(\Onphp\LogicalObject $logic)
 		{
 			return $this->fetchList($this->getSimpleQuery());
 		}
@@ -184,17 +186,17 @@
 			return $this->fetchObject($this->getSimpleQuery());
 		}
 
-		public function getCustomList(SelectQuery $query)
+		public function getCustomList(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchList($this->getSimpleQuery());
 		}
 
-		public function getCustomRowList(SelectQuery $query)
+		public function getCustomRowList(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchList($this->getSimpleQuery());
 		}
 
-		public function getQueryResult(SelectQuery $query)
+		public function getQueryResult(\Onphp\SelectQuery $query)
 		{
 			return $this->fetchList($this->getSimpleQuery());
 		}
@@ -211,7 +213,7 @@
 		
 		private function getSimpleQuery()
 		{
-			return OSQL::select()->from('test');
+			return \Onphp\OSQL::select()->from('test');
 		}
 	}
 
@@ -220,7 +222,7 @@
 		public function testSlavePoolDropLink()
 		{			
 			$slavePool =
-				SlaveDBList::create()->
+				\Onphp\SlaveDBList::create()->
 					addLink('test1', $this->getSlaveLink('test1'), 10)->
 					addLink('test2', $this->getSlaveLink('test2'), 1);
 			
@@ -236,7 +238,7 @@
 			$this->assertNull($slavePool->getSlaveLink());
 			
 			$slavePool =
-				SlaveDBList::create()->
+				\Onphp\SlaveDBList::create()->
 					addLink(
 						'test', 
 						$this->getSlaveLink('test')->setFailConnect(true),
@@ -249,7 +251,7 @@
 		public function testSlavePoolAdd()
 		{
 			$slavePool = 
-				SlaveDBList::create()->
+				\Onphp\SlaveDBList::create()->
 				addLink('test', $this->getSlaveLink('test'), 10);
 			
 			try {
@@ -275,7 +277,7 @@
 				$dbPool->addSlaveList('no_such_link', $slavePool);
 				
 				$this->fail('Added slave pool for missing link');
-			} catch (MissingElementException $e) {/* ok */}			
+			} catch (\Onphp\MissingElementException $e) {/* ok */}			
 		}
 		
 		public function testSlaveChoose()
@@ -284,7 +286,7 @@
 			
 			$pool->addSlaveList(
 				'main', 
-				SlaveDBList::create()->
+				\Onphp\SlaveDBList::create()->
 					addLink(
 						'slave1',
 						$this->getSlaveLink('slave1'),
@@ -310,15 +312,15 @@
 			$pool->
 				addSlaveList(
 					'main',
-					SlaveDBList::create()->
+					\Onphp\SlaveDBList::create()->
 						addLink('slave1', $this->getSlaveLink('slave1'))
 				);
 			
 			try {
-				Singleton::dropInstance('FakeDAO');
-			} catch (MissingElementException $e) {}
+				\Onphp\Singleton::dropInstance('FakeDAO');
+			} catch (\Onphp\MissingElementException $e) {}
 
-			$dao = Singleton::getInstance('FakeDAO');
+			$dao = \Onphp\Singleton::getInstance('\\\Onphp\\Test\\FakeDAO');
 			$worker = new FakeWorker($dao);
 			
 			try {
@@ -335,7 +337,7 @@
 				$worker->getById(1);
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 			
@@ -345,7 +347,7 @@
 				$worker->getPlainList();
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('slave1', $e->getMessage());
 			}
 
@@ -355,7 +357,7 @@
 				$worker->getPlainList();
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 			
@@ -375,7 +377,7 @@
 				$worker->dropById(1);
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 
@@ -385,7 +387,7 @@
 				$worker->dropByIds(array(1, 2));
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 
@@ -395,7 +397,7 @@
 				$worker->dropByIds(array(1, 2));
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 			
@@ -405,7 +407,7 @@
 				$dao->add(new FakeObject());
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 			
@@ -415,17 +417,17 @@
 				$dao->add(new FakeObject());
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 		}
 		
 		private function makeDBPool()
 		{
-			DBPool::dropInstance('DBPool');
+			\Onphp\DBPool::dropInstance('DBPool');
 			
 			return
-				DBPool::me()->
+				\Onphp\DBPool::me()->
 					addLink('main', DBMock::create()->setHostname('mainHost'));
 		}
 

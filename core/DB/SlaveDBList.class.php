@@ -9,6 +9,8 @@
  *                                                                         *
  ***************************************************************************/
 
+	namespace Onphp;
+	
 	final class SlaveDBList
 	{
 		private $pool = array();
@@ -16,7 +18,7 @@
 
 		/**
 		 * @static
-		 * @return SlaveDBList
+		 * @return \Onphp\SlaveDBList
 		 */
 		public static function create()
 		{
@@ -25,10 +27,10 @@
 
 		/**
 		 * @param $name
-		 * @param DB $db
+		 * @param \Onphp\DB $db
 		 * @param int $weight
-		 * @return SlaveDBList
-		 * @throws WrongArgumentException
+		 * @return \Onphp\SlaveDBList
+		 * @throws \Onphp\WrongArgumentException
 		 */
 		public function addLink($name, DB $db, $weight = 1)
 		{
@@ -51,8 +53,8 @@
 
 		/**
 		 * @param $name
-		 * @return SlaveDBList
-		 * @throws MissingElementException
+		 * @return \Onphp\SlaveDBList
+		 * @throws \Onphp\MissingElementException
 		 */
 		public function dropLink($name)
 		{
@@ -75,7 +77,7 @@
 		}
 
 		/**
-		 * @return null | DB
+		 * @return null | \Onphp\DB
 		 */
 		public function getSlaveLink()
 		{

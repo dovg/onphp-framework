@@ -14,7 +14,9 @@
 	 *
 	 * @ingroup Helpers
 	**/
-	class PostgresArray extends ArrayObject implements Stringable, DialectString
+	namespace Onphp;
+	
+	class PostgresArray extends \ArrayObject implements Stringable, DialectString
 	{
 		protected $delim = ',';
 		

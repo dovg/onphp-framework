@@ -1,11 +1,13 @@
 <?php
 	/* $Id$ */
 
+	namespace Onphp\Test;
+	
 	final class PrimitiveClassByMethodTest extends TestCase
 	{
 		public function testOf()
 		{
-			$prm = Primitive::classByMethod('form');
+			$prm = \Onphp\Primitive::classByMethod('form');
 
 			try {
 				$prm->of('InExIsNaNtClass');
@@ -16,7 +18,7 @@
 
 			$this->assertFalse(
 				$prm->
-					of('MappedForm')->
+					of('\\Onphp\\MappedForm')->
 					importValue(
 						'form'
 					)
@@ -25,49 +27,49 @@
 			$form = Form::create();
 			$this->assertTrue(
 				$prm->
-					of('MappedForm')->
+					of('\\Onphp\\MappedForm')->
 					importValue($form)
 			);
 
 			$this->assertFalse(
 				$prm->
-					of('Identifiable')->
+					of('\\Onphp\\Identifiable')->
 					importValue(1)	//there is no method 'create'
 			);
 		}
 
 		public function testSetMethodName()
 		{
-			$prm = Primitive::classByMethod('io');
+			$prm = \Onphp\Primitive::classByMethod('io');
 			$testId = 1;
 
 			try {
 				$prm->setMethodName('::wrap');
 				$this->fail('wrong parameter, should be ClassNotFoundException exception');
-			} catch (ClassNotFoundException $e) {
+			} catch (\Onphp\ClassNotFoundException $e) {
 				// pass
 			}
 
 			try {
 				$prm->setMethodName('wrap');
 				$this->fail('wrong parameter, should be WrongArgumentException exception');
-			} catch (WrongArgumentException $e) {
+			} catch (\Onphp\WrongArgumentException $e) {
 				// pass
 			}
 
 			try {
 				$prm->setMethodName('wrap::');
 				$this->fail('wrong parameter, should be ClassNotFoundException exception');
-			} catch (ClassNotFoundException $e) {
+			} catch (\Onphp\ClassNotFoundException $e) {
 				// pass
 			}
 
 			$prm->
-				of('IdentifiableObject')->
+				of('\\Onphp\\IdentifiableObject')->
 				setMethodName('wrap')->
 				importValue($testId);
 
-			$io = IdentifiableObject::wrap($testId);
+			$io = \Onphp\IdentifiableObject::wrap($testId);
 
 			$this->assertEquals(
 				$prm->getValue()->getId(),

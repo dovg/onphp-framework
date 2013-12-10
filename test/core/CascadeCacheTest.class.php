@@ -9,6 +9,10 @@
  *                                                                         *
  ***************************************************************************/
 
+	namespace Onphp\Test;
+	use \Onphp\PeclMemcached;
+	use \Onphp\CascadeCache;
+	
 	final class CascadeCacheTest extends TestCase
 	{
 		private $localPeer;
@@ -101,7 +105,7 @@
 			$indexes = array('value1', 'value2');
 			
 			$this->assertTrue(
-				ArrayUtils::isEmpty($this->peer->getList($indexes))
+				\Onphp\ArrayUtils::isEmpty($this->peer->getList($indexes))
 			);
 			foreach ($indexes as $key)
 				$this->assertEquals(

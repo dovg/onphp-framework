@@ -1,5 +1,7 @@
 <?php
 	
+	namespace Onphp\Test;
+	
 	final class DistanceBetweenPointsExpressionTest extends TestCase
 	{
 		/**
@@ -38,8 +40,8 @@
 		{
 			$this->assertEquals(
 				$expectedStr,
-				Expression::distanceBetweenPoints($point1, $point2)->
-					toDialectString(PostgresDialect::me())
+				\Onphp\Expression::distanceBetweenPoints($point1, $point2)->
+					toDialectString(\Onphp\PostgresDialect::me())
 			);
 		}
 	}

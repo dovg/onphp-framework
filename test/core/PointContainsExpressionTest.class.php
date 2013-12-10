@@ -1,5 +1,7 @@
 <?php
 	
+	namespace Onphp\Test;
+	
 	final class PointContainsExpressionTest extends TestCase
 	{
 		/**
@@ -19,19 +21,19 @@
 					
 					array(
 						'(0, 0), (0, 42)',
-						Point::create(array(42, 42)),
+						\Onphp\Point::create(array(42, 42)),
 						'\'(0, 0), (0, 42)\'::POLYGON @> \'(42, 42)\'::POINT'
 					),	
 
 					array(
-						Polygon::create(
+						\Onphp\Polygon::create(
 							array(
 								array(0, 0),
 								array(0, 3),
 								array(3, 0)
 							)		
 						),
-						Point::create(array(1, 1)),
+						\Onphp\Point::create(array(1, 1)),
 						'\'(0, 0), (0, 3), (3, 0)\'::POLYGON '
 						.'@> \'(1, 1)\'::POINT'
 					)
@@ -45,8 +47,8 @@
 		{
 			$this->assertEquals(
 				$expectedStr,
-				Expression::containsPoint($polygon, $point)->
-					toDialectString(PostgresDialect::me())
+				\Onphp\Expression::containsPoint($polygon, $point)->
+					toDialectString(\Onphp\PostgresDialect::me())
 			);
 		}
 	}

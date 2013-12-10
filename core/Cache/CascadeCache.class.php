@@ -9,6 +9,8 @@
  *                                                                         *
  ***************************************************************************/
 
+	namespace Onphp;
+	
 	final class CascadeCache extends CachePeer
 	{
 		const LOCAL_NULL_VALUE		= 'local_nil';

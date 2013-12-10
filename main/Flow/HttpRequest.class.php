@@ -51,9 +51,6 @@
 
 		private $body		= null;
 		
-		//for CurlHttpClient if you need to send raw CURLOPT_POSTFIELDS
-		private $body		= null;
-		
 		/**
 		 * @return \Onphp\HttpRequest
 		**/

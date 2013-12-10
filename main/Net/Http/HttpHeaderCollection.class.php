@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Http
 	**/
+	namespace Onphp;
+	
 	class HttpHeaderCollection implements IteratorAggregate
 	{
 		private $headers = array();
