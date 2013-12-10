@@ -14,7 +14,7 @@
 			
 			$this->assertEquals(
 				"'127.0.0.3' <<= '127.0.0.1-127.0.0.5'::ip4r",
-				$expression->toDialectString(\Onphp\PostgresDialect::me())
+				$expression->toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect())
 			);
 			
 			$expression =
@@ -24,7 +24,7 @@
 				);
 			$this->assertEquals(
 				'\'192.168.1.1\' <<= "range"',
-				$expression->toDialectString(\Onphp\PostgresDialect::me())	
+				$expression->toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect())
 			);
 			
 		}
@@ -40,12 +40,12 @@
 				addProjection(\Onphp\Projection::property('id'));
 			
 			$this->assertEquals(
-				$criteria->toDialectString(\Onphp\PostgresDialect::me()),
+				$criteria->toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect()),
 				'SELECT "test_user"."id" FROM "test_user" WHERE "test_user"."ip" <<= \'192.168.1.1-192.168.1.255\'::ip4r'
 			);
 			
 			$criteria =
-				\Onphp\Criteria::create(\Onphp\TestInternetProvider::dao())->
+				\Onphp\Criteria::create(TestInternetProvider::dao())->
 				add(
 					\Onphp\Expression::containsIp(
 						'range',
@@ -54,7 +54,7 @@
 				)->addProjection(\Onphp\Projection::property('id'));
 			
 			$this->assertEquals(
-				$criteria->toDialectString(\Onphp\PostgresDialect::me()),
+				$criteria->toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect()),
 				'SELECT "test_internet_provider"."id" FROM "test_internet_provider" WHERE \'42.42.42.42\' <<= "test_internet_provider"."range"'
 						
 			);

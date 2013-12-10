@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Primitives
 	**/
+	namespace Onphp;
+	
 	final class PrimitivePoint extends BaseObjectPrimitive
 	{
 		protected $className = 'Point';

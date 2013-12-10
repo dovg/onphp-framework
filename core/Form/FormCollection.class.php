@@ -9,7 +9,9 @@
  *                                                                          *
  ****************************************************************************/
 
-	final class FormCollection implements Iterator
+	namespace Onphp;
+	
+	final class FormCollection implements \Iterator
 	{
 		/**
 		 * @var Form

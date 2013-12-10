@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Primitives
 	**/
+	namespace Onphp;
+	
 	final class PrimitivePolygon extends BaseObjectPrimitive
 	{
 		protected $className = 'Polygon';

@@ -14,6 +14,8 @@
 	 *
 	 * @ingroup Helpers
 	**/
+	namespace Onphp;
+	
 	final class PostgresTextArray extends PostgresArray
 	{
 		/**

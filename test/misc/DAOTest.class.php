@@ -1,6 +1,8 @@
 <?php
 	/* $Id$ */
 	
+	namespace Onphp\Test;
+	
 	class DAOTest extends TestTables
 	{
 		public function create()
@@ -27,11 +29,11 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				$this->fill();
 				
 				$this->getSome(); // 41!
-				Cache::me()->clean();
+				\Onphp\Cache::me()->clean();
 				$this->getSome();
 				
 				$this->nonIntegerIdentifier();
@@ -49,7 +51,7 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				
 				//creating moscow
 				$moscow = TestCity::create()->setName('Moscow');
@@ -61,15 +63,15 @@
 				$moscow->dao()->merge($moscow->setCapital(true));
 				TestCity::dao()->dropIdentityMap();
 				
-				Criteria::create(TestCity::dao())->
+				\Onphp\Criteria::create(TestCity::dao())->
 					setSilent(false)->
-					add(Expression::isTrue('capital'))->
+					add(\Onphp\Expression::isTrue('capital'))->
 					get();
 				TestCity::dao()->dropIdentityMap();
 				
-				$moscow = Criteria::create(TestCity::dao())->
+				$moscow = \Onphp\Criteria::create(TestCity::dao())->
 					setSilent(false)->
-					add(Expression::isNull('large'))->
+					add(\Onphp\Expression::isNull('large'))->
 					get();
 				TestCity::dao()->dropIdentityMap();
 				
@@ -81,9 +83,9 @@
 				$this->assertTrue($moscow->getCapital());
 				$this->assertTrue($moscow->getLarge());
 				
-				Criteria::create(TestCity::dao())->
+				\Onphp\Criteria::create(TestCity::dao())->
 					setSilent(false)->
-					add(Expression::not(Expression::isFalse('large')))->
+					add(\Onphp\Expression::not(\Onphp\Expression::isFalse('large')))->
 					get();
 				TestCity::dao()->dropIdentityMap();
 			}
@@ -96,12 +98,12 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				$this->fill();
 				
 				$this->criteriaResult();
 				
-				Cache::me()->clean();
+				\Onphp\Cache::me()->clean();
 			}
 			
 			$this->deletedCount();
@@ -114,12 +116,12 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				$this->fill();
 				
 				$this->unified();
 				
-				Cache::me()->clean();
+				\Onphp\Cache::me()->clean();
 			}
 			
 			$this->deletedCount();
@@ -132,7 +134,7 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				
 				$this->fill();
 				
@@ -153,10 +155,10 @@
 						setPassword(sha1('newuser'))
 					)->
 					setLastLogin(
-						Timestamp::create(time())
+						\Onphp\Timestamp::create(time())
 					)->
 					setRegistered(
-						Timestamp::create(time())
+						\Onphp\Timestamp::create(time())
 					);
 				
 				TestUser::dao()->add($newUser);
@@ -234,7 +236,7 @@
 					setPassword(sha1('postgreser'))
 				)->
 				setCity($piter)->
-				setUrl(HttpUrl::create()->parse('http://postgresql.org/'));
+				setUrl(\Onphp\HttpUrl::create()->parse('http://postgresql.org/'));
 			
 			$piter = TestCity::dao()->add($piter);
 			$moscow = TestCity::dao()->add($moscow);
@@ -305,7 +307,7 @@
 				}
 				
 				$result =
-					Criteria::create(TestUser::dao())->
+					\Onphp\Criteria::create(TestUser::dao())->
 					add(Expression::eq(1, 2))->
 					getResult();
 				
@@ -325,7 +327,7 @@
 		
 		public function criteriaResult()
 		{
-			$queryResult = Criteria::create(TestCity::dao())->getResult();
+			$queryResult = \Onphp\Criteria::create(TestCity::dao())->getResult();
 			$this->assertEquals(2, $queryResult->getCount());
 		}
 		
@@ -434,7 +436,7 @@
 				TestSubItem::dao()->add($subItem2);
 				
 				$items =
-					Criteria::create(TestItem::dao())->
+					\Onphp\Criteria::create(TestItem::dao())->
 					getList();
 				
 				foreach ($items as $item) {
@@ -511,7 +513,7 @@
 			$this->create();
 			
 			foreach (DBTestPool::me()->getPool() as $connector => $db) {
-				DBPool::me()->setDefault($db);
+				\Onphp\DBPool::me()->setDefault($db);
 				$properties = array(
 					'age' => '23',
 					'weight' => 80,
@@ -541,7 +543,7 @@
 
 				$user = TestUser::dao()->add($user);
 
-				Cache::me()->clean();
+				\Onphp\Cache::me()->clean();
 				TestUser::dao()->dropIdentityMap();
 
 				$user = TestUser::dao()->getById('1');
@@ -572,7 +574,7 @@
 
 				$object = $user;
 
-				FormUtils::object2form($object, $form);
+				\Onphp\FormUtils::object2form($object, $form);
 
 				$this->assertInstanceOf('Hstore', $form->getValue('properties'));
 
@@ -599,7 +601,7 @@
 
 				$user = new TestUser();
 
-				FormUtils::form2object($form, $user, false);
+				\Onphp\FormUtils::form2object($form, $user, false);
 
 				$this->assertEquals(
 					$user->getProperties()->getList(),
@@ -656,7 +658,7 @@
 			$this->create();
 
 			$parentProperties =
-				Singleton::getInstance('ProtoTestParentObject')->
+				\Onphp\Singleton::getInstance('ProtoTestParentObject')->
 				getPropertyList();
 
 			$resultRoot = $parentProperties['root']->
@@ -713,9 +715,9 @@
 			}
 			
 			TestBinaryStuff::dao()->dropIdentityMap();
-			Cache::me()->clean();
+			\Onphp\Cache::me()->clean();
 			
-			$prm = Primitive::prototypedIdentifier('TestBinaryStuff', 'id');
+			$prm = \Onphp\Primitive::prototypedIdentifier('TestBinaryStuff', 'id');
 			
 			$this->assertTrue($prm->import(array('id' => $id)));
 			$this->assertSame($prm->getValue()->getId(), $id);
@@ -725,7 +727,7 @@
 			$this->assertEquals($binLoaded->getData(), $binaryData);
 			$this->assertEquals(TestBinaryStuff::dao()->dropById($id), 1);
 			
-			$integerIdPrimitive = Primitive::prototypedIdentifier('TestUser');
+			$integerIdPrimitive = \Onphp\rimitive::prototypedIdentifier('TestUser');
 			try {
 				$integerIdPrimitive->import(array('id' => 'string-instead-of-integer'));
 			} catch (DatabaseException $e) {
@@ -762,7 +764,7 @@
 			$this->assertTrue($userWithIp->getIp() instanceof IpAddress);
 			
 			$plainIp =
-				DBPool::me()->getByDao(TestUser::dao())->
+				\Onphp\DBPool::me()->getByDao(TestUser::dao())->
 				queryColumn(
 					OSQL::select()->get('ip')->
 					from(TestUser::dao()->getTable())->
@@ -772,9 +774,9 @@
 			$this->assertEquals($plainIp[0], $userWithIp->getIp()->toString());
 			
 			$count =
-				Criteria::create(TestUser::dao())->
-				add(Expression::eq('ip', IpAddress::create('127.0.0.1')))->
-				addProjection(Projection::count('*', 'count'))->
+				\Onphp\Criteria::create(TestUser::dao())->
+				add(\Onphp\Expression::eq('ip', \Onphp\IpAddress::create('127.0.0.1')))->
+				addProjection(\Onphp\Projection::count('*', 'count'))->
 				getCustom('count');
 			
 			$this->assertEquals($count, 1);
@@ -800,8 +802,8 @@
 				add($akado);
 			
 			$plainRange =
-					Criteria::create(TestInternetProvider::dao())->
-					addProjection(Projection::property('range'))->
+					\Onphp\Criteria::create(TestInternetProvider::dao())->
+					addProjection(\Onphp\Projection::property('range'))->
 					add(Expression::eq('name', 'Akada'))->
 					getCustom();
 			
@@ -815,12 +817,12 @@
 				TestInternetProvider::create()->
 				setName('DomRu')->
 				setRange(
-					IpRange::create('192.168.2.0/24')
+					\Onphp\IpRange::create('192.168.2.0/24')
 				)
 			);
 			
 			$list =
-				Criteria::create(TestInternetProvider::dao())->
+				\Onphp\Criteria::create(TestInternetProvider::dao())->
 				addOrder('id')->
 				getList();
 			
@@ -842,9 +844,9 @@
 			
 			$this->assertEquals(
 				$parent->getId(),
-				Criteria::create(TestChildObject::dao())->
+				\Onphp\Criteria::create(TestChildObject::dao())->
 					setProjection(
-						Projection::property('parent.id', 'parentId')
+						\Onphp\Projection::property('parent.id', 'parentId')
 					)->
 					add(Expression::eq('id', $child->getId()))->
 					getCustom('parentId')
@@ -892,7 +894,7 @@
 			$this->assertInstanceOf('TestCity', reset($objectList));
 			
 			$prm =
-				Primitive::identifierlist('cities')->
+				\Onphp\Primitive::identifierlist('cities')->
 				setIgnoreWrong(false)->
 				of('TestCity');
 			
@@ -916,7 +918,7 @@
 			$this->create();			
 			
 			$squareLocation =
-				Polygon::create(
+				\Onphp\Polygon::create(
 					array(
 						array(-21, -21),
 						array(-21,  21),
@@ -926,10 +928,10 @@
 				);
 			
 			$squareCapital =
-				Point::create(array(0, 0));	
+				\Onphp\Point::create(array(0, 0));	
 
 			$triangleLocation =
-				Polygon::create(
+				\Onphp\Polygon::create(
 					array(
 						array( 5,  5 ),
 						array(55,  5 ),
@@ -938,7 +940,7 @@
 				);
 			
 			$triangleCapital =
-				Point::create(array(6, 6));
+				\Onphp\Point::create(array(6, 6));
 			
 			TestRegion::dao()->
 				add(
@@ -957,9 +959,9 @@
 				);				
 			
 			$triangle =
-				Criteria::create(TestRegion::dao())->
+				\Onphp\Criteria::create(TestRegion::dao())->
 				add(
-					Expression::eqPoints(
+					\Onphp\Expression::eqPoints(
 						DBField::create('capital'),
 						$triangleCapital
 					)
@@ -970,7 +972,7 @@
 			$this->assertEquals('Great Triangle', $triangle->getName());
 
 			$list =
-				Criteria::create(TestRegion::dao())->
+				\Onphp\Criteria::create(TestRegion::dao())->
 				addOrder('id')->
 				getList();
 
@@ -990,11 +992,11 @@
 			);
 
 			$square =
-				Criteria::create(TestRegion::dao())->
+				\Onphp\Criteria::create(TestRegion::dao())->
 				add(
-					Expression::containsPoint(
-						DBField::create('location'),
-						Point::create(array(1, 1))
+					\Onphp\Expression::containsPoint(
+						\Onphp\DBField::create('location'),
+						\Onphp\Point::create(array(1, 1))
 					)
 				)->
 				get();
@@ -1010,7 +1012,7 @@
 			for ($i = 1; $i < 3; ++$i) {
 				$this->assertTrue(
 					TestUser::dao()->getByLogic(
-						Expression::eq('city_id', $i)
+						\Onphp\Expression::eq('city_id', $i)
 					)
 					== TestUser::dao()->getById($i)
 				);
@@ -1033,7 +1035,7 @@
 				TestCity::dao()->save($lost);
 				
 				$this->fail();
-			} catch (WrongStateException $e) {
+			} catch (\Onphp\WrongStateException $e) {
 				/* pass */
 			}
 		}
@@ -1054,7 +1056,7 @@
 			
 			$stuff = $stuff->dao()->import($stuff);
 			
-			Cache::me()->clean();
+			\Onphp\Cache::me()->clean();
 			
 			$this->assertEquals(
 				TestBinaryStuff::dao()->getById($id)->getData(),
@@ -1097,7 +1099,7 @@
 					setCity($city)->
 					setCityOptional($city)->
 					setEnum(
-						new ImageType(ImageType::getAnyId())
+						new \Onphp\ImageType(\Onphp\ImageType::getAnyId())
 					)
 			);
 			
@@ -1110,12 +1112,12 @@
 			
 			$this->assertNotNull($form->getValue('id'));
 			
-			FormUtils::object2form($object, $form);
+			\Onphp\FormUtils::object2form($object, $form);
 			
 			foreach ($object->proto()->getPropertyList() as $name => $property) {
 				if (
-					$property->getRelationId() == MetaRelation::ONE_TO_ONE
-					&& $property->getFetchStrategyId() == FetchStrategy::LAZY
+					$property->getRelationId() ==\Onphp\MetaRelation::ONE_TO_ONE
+					&& $property->getFetchStrategyId() == \Onphp\FetchStrategy::LAZY
 				) {
 					$this->assertEquals(
 						$object->{$property->getGetter()}(),
@@ -1130,7 +1132,7 @@
 			try {
 				TestUser::dao()->getById($id);
 				$this->fail();
-			} catch (WrongArgumentException $e) {
+			} catch (\Onphp\WrongArgumentException $e) {
 				// pass
 			}
 		}
