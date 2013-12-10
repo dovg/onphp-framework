@@ -21,13 +21,13 @@
 					
 					array(
 						'(0, 0)',
-						Point::create(array(42, 42)),
+						\Onphp\Point::create(array(42, 42)),
 						'\'(0, 0)\'::POINT <-> \'(42, 42)\'::POINT'
 					),	
 
 					array(
-						Point::create(array(-42, -42)),
-						Point::create(array(69, 2012)),
+						\Onphp\Point::create(array(-42, -42)),
+						\Onphp\Point::create(array(69, 2012)),
 						'\'(-42, -42)\'::POINT <-> \'(69, 2012)\'::POINT'
 					)
 				);
@@ -41,7 +41,7 @@
 			$this->assertEquals(
 				$expectedStr,
 				\Onphp\Expression::distanceBetweenPoints($point1, $point2)->
-					toDialectString(\Onphp\PostgresDialect::me())
+					toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect())
 			);
 		}
 	}

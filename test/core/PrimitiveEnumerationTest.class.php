@@ -38,14 +38,14 @@
 			$form = $this->getForm();
 						
 			$form->get('enum')->
-				setDefault(DataType::create(DataType::getAnyId()));
+				setDefault(\Onphp\DataType::create(\Onphp\DataType::getAnyId()));
 			
 			$form->import(array('enum' => -10000));
 			
 			$this->assertFalse($form->get('enum')->isImported());
 			$this->assertNull($form->getValue('enum'));
 			$this->assertEquals(
-				DataType::getAnyId(), 
+				\Onphp\DataType::getAnyId(), 
 				$form->getActualValue('enum')->getId()
 			);
 		}
@@ -53,9 +53,9 @@
 		private function getForm()
 		{
 			return
-				Form::create()->
+				\Onphp\Form::create()->
 					add(
-						Primitive::enumeration('enum')->of('DataType')
+						\Onphp\Primitive::enumeration('enum')->of('\Onphp\DataType')
 					);
 		}
 	}

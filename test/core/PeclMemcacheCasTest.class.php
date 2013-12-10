@@ -17,7 +17,7 @@
 		
 		public function testNegative()
 		{
-			$cache = new PeclMemcached();
+			$cache = new \Onphp\PeclMemcached();
 			
 			$cas = null;
 			$cache->set('cas_test_2', 42);

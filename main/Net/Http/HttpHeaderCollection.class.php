@@ -14,7 +14,7 @@
 	**/
 	namespace Onphp;
 	
-	class HttpHeaderCollection implements IteratorAggregate
+	class HttpHeaderCollection implements \IteratorAggregate
 	{
 		private $headers = array();
 

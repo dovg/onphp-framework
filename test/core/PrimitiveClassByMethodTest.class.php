@@ -11,29 +11,27 @@
 
 			try {
 				$prm->of('InExIsNaNtClass');
-				$this->fail('wrong parameter, should be ClassNotFoundException exception');
-			} catch (ClassNotFoundException $e) {
+				$this->fail('wrong parameter, should be WrongArgumentException exception');
+			} catch (\Onphp\WrongArgumentException $e) {
 				// pass
 			}
 
 			$this->assertFalse(
 				$prm->
-					of('\\Onphp\\MappedForm')->
-					importValue(
-						'form'
-					)
+					of('\Onphp\MappedForm')->
+					importValue('form')
 			);
 
-			$form = Form::create();
+			$form = \Onphp\Form::create();
 			$this->assertTrue(
 				$prm->
-					of('\\Onphp\\MappedForm')->
+					of('\Onphp\MappedForm')->
 					importValue($form)
 			);
 
 			$this->assertFalse(
 				$prm->
-					of('\\Onphp\\Identifiable')->
+					of('\Onphp\Identifiable')->
 					importValue(1)	//there is no method 'create'
 			);
 		}
@@ -65,7 +63,7 @@
 			}
 
 			$prm->
-				of('\\Onphp\\IdentifiableObject')->
+				of('\Onphp\IdentifiableObject')->
 				setMethodName('wrap')->
 				importValue($testId);
 
@@ -77,7 +75,7 @@
 			);
 
 			$prm->
-				setMethodName('IdentifiableObject::wrap')->
+				setMethodName('\Onphp\IdentifiableObject::wrap')->
 				importValue($testId);
 
 			$this->assertEquals(

@@ -8,6 +8,8 @@
 	/**
 	 * @ingroup Primitives
 	 **/
+	 namespace Onphp;
+	 
 	final class PrimitiveClassByMethod extends PrimitiveClass
 	{
 		private $methodName	= 'create';
@@ -30,7 +32,7 @@
 				$this->value = $result;
 
 				return true;
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				$this->value = null;
 
 				return false;

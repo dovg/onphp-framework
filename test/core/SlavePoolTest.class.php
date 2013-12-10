@@ -74,22 +74,22 @@
 
 		public function queryRow(\Onphp\Query $query)
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 
 		public function querySet(\Onphp\Query $query)
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 
 		public function queryColumn(\Onphp\Query $query)
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 
 		public function queryCount(\Onphp\Query $query)
 		{
-			throw new DatabaseException($this->hostname);
+			throw new \Onphp\DatabaseException($this->hostname);
 		}
 
 		public function setDbEncoding()
@@ -119,7 +119,7 @@
 
 		public function getObjectName()
 		{
-			return 'FakeObject';
+			return '\Onphp\Test\FakeObject';
 		}
 	}
 
@@ -127,7 +127,7 @@
 	{
 		public static function proto()
 		{
-			return \Onphp\Singleton::getInstance('ProtoFakeObject');
+			return \Onphp\Singleton::getInstance('\Onphp\Test\ProtoFakeObject');
 		}
 		
 		public function getId()
@@ -261,7 +261,7 @@
 				);
 				
 				$this->fail('Dublicate slave link in slave pool');
-			} catch (WrongArgumentException $e) {/* ok */}
+			} catch (\Onphp\WrongArgumentException $e) {/* ok */}
 			
 			$dbPool = $this->makeDBPool();
 			
@@ -271,7 +271,7 @@
 				$dbPool->addSlaveList('main', $slavePool);
 				
 				$this->fail('Dublicate slave pool');
-			} catch (WrongStateException $e) {/* ok */}
+			} catch (\Onphp\WrongStateException $e) {/* ok */}
 			
 			try {
 				$dbPool->addSlaveList('no_such_link', $slavePool);
@@ -320,14 +320,14 @@
 				\Onphp\Singleton::dropInstance('FakeDAO');
 			} catch (\Onphp\MissingElementException $e) {}
 
-			$dao = \Onphp\Singleton::getInstance('\\\Onphp\\Test\\FakeDAO');
+			$dao = \Onphp\Singleton::getInstance('\Onphp\Test\FakeDAO');
 			$worker = new FakeWorker($dao);
 			
 			try {
 				$worker->getById(1);
 				
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('slave1', $e->getMessage());
 			}
 			
@@ -367,7 +367,7 @@
 				$worker->dropById(1);
 
 				$this->fail('No exception is strange');
-			} catch (DatabaseException $e) {
+			} catch (\Onphp\DatabaseException $e) {
 				$this->assertEquals('mainHost', $e->getMessage());
 			}
 
@@ -424,7 +424,7 @@
 		
 		private function makeDBPool()
 		{
-			\Onphp\DBPool::dropInstance('DBPool');
+			\Onphp\DBPool::dropInstance('\Onphp\DBPool');
 			
 			return
 				\Onphp\DBPool::me()->
