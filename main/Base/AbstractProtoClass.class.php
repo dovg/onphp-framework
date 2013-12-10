@@ -235,7 +235,7 @@
 			
 			foreach ($this->getPropertyList() as $name => $property) {
 				if (!$isUpdate || (!in_array($name, $this->skipPropertyList)))
-					$property->fillQuery($query, $object);
+					$property->fillQuery($query, $object, $old);
 			}
 
 			return $query;
