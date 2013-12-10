@@ -34,17 +34,8 @@
 				$class->getPattern()->daoExists()
 				&& (!$class->getPattern() instanceof AbstractClassPattern)
 			) {
-				$interfaces = ' implements PrototypedDAOConnected';
-				
-				$daoName = $class->getName().'DAO';
-				$dao = <<<EOT
-	/**
-	 * @return {$daoName}
-	**/
-	public static function dao()
-	{
-		return Singleton::getInstance('{$daoName}');
-	}
+				$interfaces = ' implements \Onphp\PrototypedDAOConnected';
+			}
 
 			$out .= <<<EOT
 {$typeName}class {$class->getName()} extends {$class->getFullClassName('Auto')}{$interfaces}

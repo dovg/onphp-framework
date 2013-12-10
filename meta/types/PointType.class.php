@@ -13,6 +13,8 @@
 	/**
 	 * @ingroup Types
 	**/
+	namespace Onphp;
+	
 	class PointType extends ObjectType
 	{
 		public function getPrimitiveName()
@@ -32,7 +34,7 @@
 		
 		public function toColumnType()
 		{
-			return 'DataType::create(DataType::POINT)';
+			return '\Onphp\\DataType::create(\Onphp\\DataType::POINT)';
 		}
 	}
 ?>
