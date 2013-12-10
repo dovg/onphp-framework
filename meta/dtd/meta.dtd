@@ -14,11 +14,8 @@
 		extends		CDATA #IMPLIED
 		source		CDATA #IMPLIED
 		table		CDATA #IMPLIED
-<<<<<<< HEAD
 		namespace	CDATA #IMPLIED
-=======
 		fromSlave   (true|false) "false"
->>>>>>> 1.0-dovg
 >
 
 <!ELEMENT implement EMPTY>

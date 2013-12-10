@@ -13,6 +13,8 @@
 	/**
 	 * @ingroup Types
 	**/
+	namespace Onphp;
+	
 	class PolygonType extends ObjectType
 	{
 		public function getPrimitiveName()
@@ -32,7 +34,7 @@
 		
 		public function toColumnType()
 		{
-			return 'DataType::create(DataType::POLYGON)';
+			return '\Onphp\\DataType::create(\Onphp\\DataType::POLYGON)';
 		}
 	}
 ?>
