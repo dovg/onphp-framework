@@ -47,11 +47,7 @@
 
 				$this->link->connect();
 
-<<<<<<< HEAD
 			} catch (\AMQPConnectionException $e) {
-=======
-			} catch (AMQPConnectionException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 
 				throw new AMQPServerConnectionException(
@@ -73,11 +69,7 @@
 			try {
 				$this->link->reconnect();
 				return $this;
-<<<<<<< HEAD
 			} catch (\AMQPConnectionException $e) {
-=======
-			} catch (AMQPConnectionException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 
 				throw new AMQPServerConnectionException(
@@ -99,11 +91,7 @@
 					$this->link->disconnect();
 					return $this;
 				}
-<<<<<<< HEAD
 			} catch (\AMQPConnectionException $e) {
-=======
-			} catch (AMQPConnectionException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 				
 				throw new AMQPServerConnectionException(
@@ -116,13 +104,8 @@
 
 		/**
 		 * @param mixed $id
-<<<<<<< HEAD
 		 * @param \Onphp\AMQPInterface $transport
 		 * @return \Onphp\AMQPPeclChannel
-=======
-		 * @param AMQPInterface $transport
-		 * @return AMQPPeclChannel
->>>>>>> 1.0-dovg
 		**/
 		public function spawnChannel($id, AMQPInterface $transport)
 		{

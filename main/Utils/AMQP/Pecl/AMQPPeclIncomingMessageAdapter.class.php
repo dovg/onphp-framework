@@ -9,7 +9,6 @@
  *                                                                         *
  ***************************************************************************/
 
-<<<<<<< HEAD
 namespace Onphp;
 
 final class AMQPPeclIncomingMessageAdapter extends StaticFactory
@@ -19,15 +18,6 @@ final class AMQPPeclIncomingMessageAdapter extends StaticFactory
 	 * @return \Onphp\AMQPIncomingMessage
 	 */
 	public static function convert(\AMQPEnvelope $incoming)
-=======
-final class AMQPPeclIncomingMessageAdapter extends StaticFactory
-{
-	/**
-	 * @param AMQPEnvelope $incoming
-	 * @return AMQPIncomingMessage
-	 */
-	public static function convert(AMQPEnvelope $incoming)
->>>>>>> 1.0-dovg
 	{
 		$data = array(
 			AMQPIncomingMessage::APP_ID => $incoming->getAppId(),
