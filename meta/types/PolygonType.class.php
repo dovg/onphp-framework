@@ -34,7 +34,7 @@
 		
 		public function toColumnType()
 		{
-			return '\Onphp\\DataType::create(\Onphp\\DataType::POLYGON)';
+			return '\Onphp\DataType::create(\Onphp\DataType::POLYGON)';
 		}
 	}
 ?>

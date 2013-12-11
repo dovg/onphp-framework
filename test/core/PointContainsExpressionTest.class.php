@@ -48,7 +48,7 @@
 			$this->assertEquals(
 				$expectedStr,
 				\Onphp\Expression::containsPoint($polygon, $point)->
-					toDialectString(\Onphp\PostgresDialect::me())
+					toDialectString(DBTestPool::me()->getDb('\Onphp\PgSQL')->getDialect())
 			);
 		}
 	}

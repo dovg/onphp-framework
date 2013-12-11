@@ -10,13 +10,13 @@
 			return 
 				array(
 					array(
-						Point::create(
+						\Onphp\Point::create(
 							array(0, 42)
 						),
 						'(0, 42)'
 					),
 					array(
-						Point::create(
+						\Onphp\Point::create(
 							array(-1)
 						),
 						'(-1)'
@@ -40,7 +40,7 @@
 		
 		public function testFactory()
 		{
-			$point = Point::create(42, 24);
+			$point = \Onphp\Point::create(42, 24);
 
 			$this->assertTrue(
 				$point->isEqual(Point::create('(42, 24)'))
@@ -51,14 +51,14 @@
 			);
 			
 			$this->assertTrue(
-				$point->isEqual(Point::create(array(42, 24)))
+				$point->isEqual(\Onphp\Point::create(array(42, 24)))
 			);
 		}		
 		
 		/**
 		 * @dataProvider providerPointToString
 		**/		
-		public function testPointToString(Point $point, $expectedStr)
+		public function testPointToString(\Onphp\Point $point, $expectedStr)
 		{
 			$this->assertEquals($expectedStr, $point->toString());
 		}
@@ -78,24 +78,24 @@
 		{
 			$this->assertEquals(
 				3, 
-				Point::create(array(1, 2, 42))->
+				\Onphp\Point::create(array(1, 2, 42))->
 					getNumberOfCoordinates()
 			);			
 			
 			$this->assertTrue(
-				Point::create(array(19, 91))->
+				\Onphp\Point::create(array(19, 91))->
 					belongsToPlane()
 			);
 			
 			$this->assertFalse(
-				Point::create(array(42))->
+				\Onphp\Point::create(array(42))->
 					belongsToPlane()
 			);			
 		}
 		
 		public function testGettersSetters()
 		{
-			$point = Point::create(array(1, 1, 42));
+			$point = \Onphp\Point::create(array(1, 1, 42));
 			
 			$this->assertEquals(42, $point->getZ());
 			$this->assertEquals(8, $point->setY(8)->getY());
@@ -103,7 +103,7 @@
 
 		public function testDefaultPoint()
 		{
-			$point = Point::create();
+			$point = \Onphp\Point::create();
 
 			$this->assertTrue($point->belongsToPlane());
 			$this->assertEquals(0, $point->getX());

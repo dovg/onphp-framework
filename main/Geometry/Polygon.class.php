@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Geometry
 	**/
+	namespace Onphp;
+	
 	final class Polygon implements Stringable, DialectString
 	{
 		/**
@@ -66,7 +68,7 @@
 		}
 		
 		/**
-		 * @return Point[] 
+		 * @return \Onphp\Point[] 
 		**/
 		public function getVertexList()
 		{
@@ -74,7 +76,7 @@
 		}		
 		
 		/**
-		 * @return Polygon 
+		 * @return \Onphp\Polygon 
 		**/
 		public function addVertex(Point $point)
 		{
@@ -90,8 +92,8 @@
 		
 		/**
 		 * @param int $n
-		 * @return Point
-		 * @throws WrongArgumentException 
+		 * @return \Onphp\Point
+		 * @throws \Onphp\WrongArgumentException 
 		**/
 		public function getVertex($n)
 		{
@@ -106,8 +108,8 @@
 		
 		/**
 		 * @param int $n
-		 * @return Polygon
-		 * @throws WrongArgumentException 
+		 * @return \Onphp\Polygon
+		 * @throws \Onphp\WrongArgumentException 
 		**/
 		public function setVertex($n, Point $vertex)
 		{
@@ -153,7 +155,7 @@
 		}
 		
 		/**
-		 * @return Polygon 
+		 * @return \Onphp\Polygon 
 		**/
 		public function getBoundingBox()
 		{
@@ -213,7 +215,7 @@
 		 *   ( x1 , y1   , ... ,   xn , yn )  
 		 *     x1 , y1   , ... ,   xn , yn   
 		 * 
-		 * @return Polygon
+		 * @return \Onphp\Polygon
 		**/
 		private function getVertexListByString($polygon)
 		{			

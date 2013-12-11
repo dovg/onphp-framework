@@ -177,6 +177,8 @@
 		ONPHP_MAIN_PATH.'Messages'.DIRECTORY_SEPARATOR.'Interface',
 
 		ONPHP_MAIN_PATH.'Application'	,
+		
+		ONPHP_MAIN_PATH.'Geometry'	,
 
 		ONPHP_MAIN_PATH.'Charts',
 		ONPHP_MAIN_PATH.'Charts'.DIRECTORY_SEPARATOR.'Google',

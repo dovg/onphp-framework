@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Geometry
 	**/
+	namespace Onphp;
+	
 	class Point implements Stringable, DialectString
 	{
 		const X = 0;
@@ -24,7 +26,7 @@
 		private $vector = array();
 		
 		/**
-		 * @return Point
+		 * @return \Onphp\Point
 		**/
 		public static function create(/* ... */)
 		{
@@ -80,7 +82,7 @@
 		/**
 		 * @return bool
 		**/
-		public function isEqual(Point $point)
+		public function isEqual(\Onphp\Point $point)
 		{
 			if (count($this->vector) != count($point->vector))
 				return false;
@@ -95,8 +97,8 @@
 		/**
 		 * @param int $n
 		 * @param int|float $value
-		 * @return Point
-		 * @throws WrongArgumentException 
+		 * @return \Onphp\Point
+		 * @throws \Onphp\WrongArgumentException 
 		**/
 		public function setCoordinate($n, $value)
 		{
@@ -112,7 +114,7 @@
 		}
 		
 		/**
-		 * @return Point 
+		 * @return \Onphp\Point 
 		 */
 		public function setX($value)
 		{
@@ -121,7 +123,7 @@
 		}
 		
 		/**
-		 * @return Point 
+		 * @return \Onphp\Point 
 		 */
 		public function setY($value)
 		{
@@ -130,7 +132,7 @@
 		}
 		
 		/**
-		 * @return Point 
+		 * @return \Onphp\Point 
 		 */
 		public function setZ($value)
 		{
@@ -140,7 +142,7 @@
 		
 		/**
 		 * @param int $n
-		 * @throws WrongArgumentException 
+		 * @throws \Onphp\WrongArgumentException 
 		 * @return float|int
 		**/
 		public function getCoordinate($n)

@@ -12,15 +12,17 @@
 	/**
 	 * @ingroup Logic
 	**/
+	namespace Onphp;
+	
 	final class DistanceBetweenPointsExpression implements LogicalObject, MappableObject
 	{
 		/**
-		 * @var Point|string 
+		 * @var \Onphp\Point|string 
 		**/
 		private $p1 = null;
 
 		/**
-		 * @var Point|string 
+		 * @var \Onphp\Point|string 
 		**/		
 		private $p2 = null;
 		

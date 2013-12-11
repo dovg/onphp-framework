@@ -12,6 +12,8 @@
 	/**
 	 * @ingroup Logic
 	**/
+	namespace Onphp;
+	
 	final class PointContainsExpression implements LogicalObject, MappableObject
 	{
 		private $polygon = null;
