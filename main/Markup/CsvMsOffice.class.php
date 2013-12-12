@@ -1,49 +1,53 @@
 <?php
+/***************************************************************************
+ *   Copyright (C) 2013 by Artur Baltaev                                   *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Lesser General Public License as        *
+ *   published by the Free Software Foundation; either version 3 of the    *
+ *   License, or (at your option) any later version.                       *
+ *                                                                         *
+ ***************************************************************************/
 
-	/**
-	 * Optimal csv for MS Office
-	 * @author Artur Baltaev <a.baltaev@co.wapstart.ru>
-	 * @copyright Copyright (c) 2013, WapStart
-	 */
 	final class CsvMsOffice extends Csv
 	{
 		const SEPARATOR = "\t";
 		const CODE_PAGE_TO = 'UTF-16';
 		const CODE_PAGE_FROM = 'UTF-8';
 
-		private $copePageTo = self::CODE_PAGE_TO;
-		private $copePageFrom = self::CODE_PAGE_FROM;
+		private $codePageTo = self::CODE_PAGE_TO;
+		private $codePageFrom = self::CODE_PAGE_FROM;
 
 		public function render($forceQuotes = true)
 		{
 			return iconv(
-				$this->copePageFrom,
-				$this->copePageTo,
+				$this->codePageFrom,
+				$this->codePageTo,
 				parent::render($forceQuotes)
 			);
 		}
 
-		public function setCodePageTo($copePageTo)
+		public function setCodePageTo($codePageTo)
 		{
-			$this->copePageTo = $copePageTo;
+			$this->codePageTo = $codePageTo;
 
 			return $this;
 		}
 
 		public function getCodePageTo()
 		{
-			return $this->copePageTo;
+			return $this->codePageTo;
 		}
 
-		public function setCodePageFrom($copePageFrom)
+		public function setCodePageFrom($codePageFrom)
 		{
-			$this->copePageFrom = $copePageFrom;
+			$this->codePageFrom = $codePageFrom;
 
 			return $this;
 		}
 
 		public function getCodePageFrom()
 		{
-			return $this->copePageFrom;
+			return $this->codePageFrom;
 		}
 	}
