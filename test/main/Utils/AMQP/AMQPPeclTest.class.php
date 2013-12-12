@@ -52,9 +52,6 @@
 	}
 
 	class AMQPTestCaseAutoAckQueueConsumer extends \Onphp\AMQPPeclQueueConsumer
-=======
-	class AMQPTestCaseNoAckQueueConsumer extends AMQPPeclQueueConsumer
->>>>>>> 1.0-dovg
 	{
 		protected $checkString = '';
 
@@ -93,41 +90,6 @@
 			return;
 		}
 	}
-
-	class AMQPTestCaseAutoAckQueueConsumer extends AMQPPeclQueueConsumer
-	{
-		protected $checkString = '';
-
-		public function handleCancelOk($consumerTag)
-		{
-			$this->checkString .= 'C';
-		}
-
-		public function handleConsumeOk($consumerTag)
-		{
-			$this->checkString .= 'A';
-
-			AMQPPeclTest::checkMessageCount($this->getChannel());
-		}
-
-		public function handleDelivery(AMQPIncomingMessage $delivery)
-		{
-			AMQPPeclTest::messageTest($delivery, $this->count);
-
-			return parent::handleDelivery($delivery);
-		}
-
-		public function getCheckString()
-		{
-			return $this->checkString;
-		}
-
-		public function handleChangeConsumerTag($fromTag, $toTag)
-		{
-			return;
-		}
-	}
-
 
 	class AMQPPeclTest extends TestCase
 	{
@@ -878,33 +840,6 @@
 
 			$this->assertInstanceOf(
 				'AMQPChannelInterface',
-				$channelInterface
-			);
-
-			return $channelInterface;
-		}
-		
-		/**
-		 * @param AMQPChannelInterface $channel
-		 * @param string $label
-		 * @return int
-		 */
-		protected function queueDeclare(AMQPChannelInterface $channel, $label)
-		{
-			$this->assertTrue(isset(self::$queueList[$label]));
-
-			return $channel->queueDeclare(
-				self::$queueList[$label]['name'],
-				AMQPQueueConfig::create()->
-					setDurable(true)->
-					setArguments(
-						self::$queueList[$label]['args']
-					)
-			);
-		}
-
-			$this->assertInstanceOf(
-				'\Onphp\AMQPChannelInterface',
 				$channelInterface
 			);
 
