@@ -8,7 +8,8 @@
  *   License, or (at your option) any later version.                       *
  *                                                                         *
  ***************************************************************************/
-	
+
+	namespace Onphp;
 	/**
 	 * @ingroup Flow
 	**/
@@ -31,7 +32,6 @@
 		 * @var HttpRequest
 		 */
 		protected $request				= null;
-		
 		private $controllerName			= null;
 		
 		private $templatesDirectory		= null;

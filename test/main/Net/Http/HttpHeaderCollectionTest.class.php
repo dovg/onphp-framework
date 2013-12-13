@@ -9,6 +9,12 @@
  *                                                                         *
  ***************************************************************************/
 
+	
+	namespace Onphp\Test;
+
+	use Onphp\HttpHeaderCollection;
+	use Onphp\MissingElementException;
+	
 	class HttpHeaderCollectionTest extends TestCase
 	{
 		public function testSetter()

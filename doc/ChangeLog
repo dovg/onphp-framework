@@ -43,14 +43,21 @@
 	* core/Base/Singleton.class.php:
 		Singleton 2+ constructor arguments now without eval
  
-2013-04-19 Aleksey S. Denisov
+
+2013-09-03 Vasily M. Stashko
+
+	* core/DB/MySQL.class.php
+	core/DB/MySQLim.class.php:
+		added (mysqli?_ping) check to isConnected() methods
+
+2013-04-19  Aleksey S. Denisov
 
 	* core/Cache/CachePeer.class.php
-      core/Cache/WatermarkedPeer.class.php
-      core/DB/DB.class.php:
+	core/Cache/WatermarkedPeer.class.php
+	core/DB/DB.class.php:
         fixed deferent uncache keys with watermark while in db transaction
 
-2013-04-08 Artem V. Titarenko
+2013-04-08  Artem V. Titarenko
 
 	* main/DAOs/Workers/SmartDaoWorker.class.php: SmartDaoWorker race condition bug fix
 
@@ -316,7 +323,7 @@
 
 	Introducing Uncachers
 
-2012-06-29	Nikita Konstantinov
+2012-06-29	Nikita V. Konstantinov
 
 	* core/DB/PgSQL.class.php
 		test/core/DbConnectionTest.class.php:

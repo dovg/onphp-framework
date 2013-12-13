@@ -22,6 +22,9 @@
 		
 		private $imported = false;
 		
+		/**
+		 * @var Form[]
+		 */
 		private $formList = array();
 		
 		/**

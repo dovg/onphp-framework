@@ -9,11 +9,11 @@
  *                                                                         *
  ***************************************************************************/
 
+
+	namespace Onphp;
 	/**
 	 * @ingroup Http
 	**/
-	namespace Onphp;
-	
 	class HttpHeaderCollection implements \IteratorAggregate
 	{
 		private $headers = array();
@@ -98,11 +98,13 @@
 		{
 			$headerList = array();
 
-			foreach ($this->headers as $header => $valueList)
-				foreach ($valueList as $value)
+			foreach ($this->headers as $header => $valueList) {
+				foreach ($valueList as $value) {
 					$headerList[] = sprintf('%s: %s', $header, $value);
+				}
+			}
 
-			return new ArrayIterator($headerList);
+			return new \ArrayIterator($headerList);
 		}
 
 		private function normalizeName($name)
