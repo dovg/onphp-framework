@@ -9,11 +9,8 @@
 	*                                                                         *
 	***************************************************************************/
 
-<<<<<<< HEAD
 	namespace Onphp;
-
-=======
->>>>>>> 1.0-dovg
+	
 	final class RedisNoSQL extends CachePeer implements ListGenerator
 	{
 		const DEFAULT_HOST = 'localhost';
@@ -30,11 +27,7 @@
 		 * @param type $host
 		 * @param type $port
 		 * @param type $timeout
-<<<<<<< HEAD
 		 * @return \Onphp\RedisNoSQL
-=======
-		 * @return RedisNoSQL 
->>>>>>> 1.0-dovg
 		 */
 		public static function create(
 			$host = self::DEFAULT_HOST,
@@ -61,11 +54,7 @@
 			if ($this->alive) {
 				try {
 					$this->redis->close();		//if pconnect - it will be ignored
-<<<<<<< HEAD
 				} catch (\RedisException $e) {
-=======
-				} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 					// shhhh.
 				}
 			}
@@ -77,11 +66,7 @@
 			
 			try {
 				$this->redis->flushDB();
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 			}
 			
@@ -94,11 +79,7 @@
 			
 			try {
 				$this->alive = $this->redis->ping() == '+PONG';
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 			}
 			
@@ -111,11 +92,7 @@
 			
 			try {
 				return $this->redis->append($key, $data);
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				return $this->alive = false;
 			}
 		}
@@ -126,11 +103,7 @@
 			
 			try {
 				return $this->redis->decrBy($key, $value);
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				return null;
 			}
 		}
@@ -141,11 +114,7 @@
 			
 			try {
 				return $this->redis->delete($key);
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				return $this->alive = false;
 			}
 		}
@@ -156,11 +125,7 @@
 			
 			try {
 				return $this->redis->get($key);
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 				
 				return null;
@@ -173,25 +138,15 @@
 			
 			try {
 				return $this->redis->incrBy($key, $value);
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				return null;
 			}
 		}
 
 		/**
-<<<<<<< HEAD
 		 * @param string $key
 		 *
 		 * @return \Onphp\RedisNoSQLList
-=======
-		 * @param string $key 
-		 * 
-		 * @return RedisNoSQLList
->>>>>>> 1.0-dovg
 		 */
 		public function fetchList($key, $timeout = null)
 		{
@@ -201,13 +156,8 @@
 		}
 		
 		/**
-<<<<<<< HEAD
 		 * @param string $key
 		 *
-=======
-		 * @param string $key 
-		 * 
->>>>>>> 1.0-dovg
 		 * @return RedisNoSQLSet
 		 */
 		public function fetchSet($key)
@@ -216,13 +166,8 @@
 		}
 		
 		/**
-<<<<<<< HEAD
 		 * @param string $key
 		 *
-=======
-		 * @param string $key 
-		 * 
->>>>>>> 1.0-dovg
 		 * @return RedisNoSQLHash
 		 */
 		public function fetchHash($key)
@@ -242,11 +187,7 @@
 						$result = $this->redis->set($key, $value);
 						$this->redis->expire($key, $expires);
 						return $result;
-<<<<<<< HEAD
 					} catch (\RedisException $e) {
-=======
-					} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 						return $this->alive = false;
 					}
 					
@@ -257,29 +198,17 @@
 		
 		protected function ensureTriedToConnect()
 		{
-<<<<<<< HEAD
 			if ($this->triedConnect)
-=======
-			if ($this->triedConnect) 
->>>>>>> 1.0-dovg
 				return $this;
 			
 			$this->triedConnect = true;
 			
-<<<<<<< HEAD
 			$this->redis = new \Redis();
-=======
-			$this->redis = new Redis();
->>>>>>> 1.0-dovg
 			
 			try {
 				$this->redis->pconnect($this->host, $this->port, $this->timeout);
 				$this->isAlive();
-<<<<<<< HEAD
 			} catch (\RedisException $e) {
-=======
-			} catch (RedisException $e) {
->>>>>>> 1.0-dovg
 				$this->alive = false;
 			}
 			
