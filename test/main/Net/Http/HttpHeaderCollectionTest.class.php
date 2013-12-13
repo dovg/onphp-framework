@@ -78,7 +78,7 @@
 
 		/**
 		 * @depends testRemoving
-		 * @expectedException MissingElementException
+		 * @expectedException \Onphp\MissingElementException
 		 */
 		public function testFailedRemoving(HttpHeaderCollection $collection)
 		{

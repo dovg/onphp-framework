@@ -37,9 +37,9 @@
 	);
 	
 	$config = __DIR__.'/config.inc.php';
-	
+
 	require is_readable($config) ? $config : $config.'.tpl';
-	
+
 	AllTests::$dbs = $dbs;
 	AllTests::$paths = $testPathes;
 	AllTests::$workers = $daoWorkers;
@@ -106,9 +106,7 @@
 				
 				$out = \Onphp\MetaConfiguration::me()->getOutput();
 				
-				foreach (DBTestPool::me()->getPool() as $connector => $db) {
-					\Onphp\DBPool::me()->setDefault($db);
-					
+				foreach (DBTestPool::me()->iterator() as $db) {
 					$out->
 						info('Using ')->
 						info(get_class($db), true)->
@@ -133,5 +131,5 @@
 			
 			return $suite;
 		}
-	}
+	}	
 ?>
